@@ -1,27 +1,23 @@
 const db = require('../db');
-const product = db.products;
+const products = db.products;
 
 class ProductController {
   async getAllProduct(req, res) {
-    await product
+    await products
       .findAll()
       .then((result) => {
-        var data;
-        if (Object.keys(req.query).length === 0) data = result;
-        else {
-          data = result.filter((value) => {
-            if (req.query.name != undefined)
-              return value.name.includes(req.query.name);
-            if (req.query.size != undefined)
-              return value.size.includes(req.query.size);
-            if (req.query.color != undefined)
-              return value.color.includes(req.query.color);
-          });
-        }
+        const filters = req.query;
+        const filteredProducts = result.filter((product) => {
+          let isValid = true;
+          for (let key in filters) {
+            isValid = isValid && product[key] == filters[key];
+          }
+          return isValid;
+        });
         return res.status(200).json({
           page: 0,
           limit: 0,
-          data: { data },
+          data: { filteredProducts },
           message: 'Sucessfully',
         });
       })
