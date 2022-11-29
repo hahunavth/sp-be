@@ -3,10 +3,10 @@ module.exports = (sequelize, DataTypes) => {
       'supplier',
       {
         // Id: DataTypes.INTEGER,
-        Name: DataTypes.INTEGER,
+        Name: DataTypes.STRING,
         Phone: DataTypes.STRING,
         Email: DataTypes.STRING,
-        Address: DataTypes.INTEGER,
+        Address: DataTypes.STRING,
         Star: DataTypes.INTEGER,
         CREATEBY: DataTypes.STRING,
         UPDATEBY: DataTypes.STRING,
