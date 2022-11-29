@@ -7,7 +7,7 @@ var logger = require('morgan');
 var router = express.Router();
 const connectDb = require('./db.js');
 
-var productRouter = require('./routes/product');
+var importHistory = require('./routes/importHistory');
 
 var app = express();
 connectDb;
@@ -24,7 +24,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/importProduct', productRouter);
+app.use('/importProduct', importHistory);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

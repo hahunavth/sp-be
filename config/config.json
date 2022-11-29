@@ -1,0 +1,14 @@
+{
+  "importHistory": [
+    {
+      "IdSupplier": 2,
+      "IdProduct": 2,
+      "Size": "M",
+      "Color": "red",
+      "Amount": 9,
+      "Money": 20000,
+      "CREATEBY": "Hiếu",
+      "UPDATEBY": "Hiếu"
+    }
+  ]
+}
