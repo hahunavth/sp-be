@@ -10,5 +10,17 @@
       "CREATEBY": "Hiếu",
       "UPDATEBY": "Hiếu"
     }
-  ]
+  ],
+  "supplier": [
+    {
+      "Name": 2,
+      "Phone": "12331",
+      "Email": "a@gmail.com",
+      "Address": "suoi vang",
+      "Star": 1,
+      "CREATEBY": "Hiếu",
+      "UPDATEBY": "Hiếu"
+    }
+  ],
+  "products": []
 }

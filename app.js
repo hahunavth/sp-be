@@ -14,7 +14,7 @@ const connectDb = require("./db.js");
 
 var importHistory = require("./routes/importHistory");
 var exportRouter = require("./routes/export");
-var supplier = require("./router/supplier");
+var supplier = require("./routes/supplier");
 var app = express();
 connectDb;
 
