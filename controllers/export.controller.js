@@ -1,11 +1,16 @@
 const db = require("../db");
 const Export1 = db.exports;
+const Response = require("../utils/responses");
 
 class ExportController {
   async exportProduct(req, res) {
     //Nhận yêu cầu từ đơn hàng
-    const dataProduct = req.body.products;
-    const shipInfo = req.body.shippingInfo;
+    const { products, ship_info } = req.body;
+
+    if (!(products && ship_info)) {
+      Response.input(res);
+    }
+
     const dateShip = new Date();
     //Kiểm tra tính khả dụng của đơn hàng
     // if(req.)
@@ -24,11 +29,10 @@ class ExportController {
     //   res.send("Khong du so luong");
     // }
 
-    res.status(200).json({
-      dataProduct: { dataProduct },
-      shipInfo: { shipInfo },
-      dateShip: { dateShip },
-      message: "Sucessfully",
+    Response.success(res, {
+      products,
+      ship_info,
+      data_ship: [],
     });
   }
 }

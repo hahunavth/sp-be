@@ -1,6 +1,7 @@
-const db = require('../db');
+const db = require("../db");
 const supplier = db.supplier;
-const newSupplier = require('../config/config.json');
+const newSupplier = require("../config/config.json");
+const Response = require("../utils/responses");
 
 class supplierController {
   async getAllSupplier(req, res) {
@@ -15,15 +16,16 @@ class supplierController {
           }
           return isValid;
         });
-        return res.status(200).json({
-          page: 0,
-          limit: 0,
-          data: { filteredSuppliers },
-          message: 'Sucessfully',
-        });
+        // return res.status(200).json({
+        //   page: 0,
+        //   limit: 0,
+        //   data: { filteredSuppliers },
+        //   message: 'Sucessfully',
+        // });
+        return Response.paginate(res, filteredSuppliers);
       })
       .catch((err) => {
-        console.log(err);
+        return Response.error(res, err);
       });
   }
 
@@ -32,11 +34,12 @@ class supplierController {
     await supplier
       .bulkCreate(list)
       .then((result) => {
-        return res.json({
-          status: 200,
-          data: {},
-          message: 'Create list history successfull',
-        });
+        // return res.json({
+        //   status: 200,
+        //   data: {},
+        //   message: "Create list history successfull",
+        // });
+        return Response.success(res, list);
       })
       .catch((err) => {
         console.log(err);
@@ -47,13 +50,15 @@ class supplierController {
     await supplier
       .findByPk(req.params.id)
       .then((result) => {
-        return res.status(200).json({
-          data: { result },
-          message: 'Sucessfully',
-        });
+        // return res.status(200).json({
+        //   data: { result },
+        //   message: "Sucessfully",
+        // });
+        return Response.success(result);
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
+        return Response.error(res, err);
       });
   }
 
@@ -61,11 +66,12 @@ class supplierController {
     try {
       await supplier.update(req.body, { where: { id: req.params.id } });
 
-      return res.status(200).send('Updated!');
+      return res.status(200).send("Updated!");
     } catch (error) {
-      return res.json({
-        Error: 'Something went wrong! Check this message: ' + error,
-      });
+      // return res.json({
+      //   Error: "Something went wrong! Check this message: " + error,
+      // });
+      return Response.error(res, error);
     }
   }
 
@@ -77,11 +83,12 @@ class supplierController {
         },
       });
 
-      return res.status(200).send('Deleted!');
+      return res.status(200).send("Deleted!");
     } catch (error) {
-      return res.json({
-        Error: 'Something went wrong! Check this message: ' + error,
-      });
+      // return res.json({
+      //   Error: "Something went wrong! Check this message: " + error,
+      // });
+      return Response.error(res, err);
     }
   }
 }

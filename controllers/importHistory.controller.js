@@ -1,6 +1,7 @@
 const db = require("../db");
 const importHistory = db.import_history;
 const newHistoryList = require("../config/config.json");
+const Response = require("../utils/responses");
 
 class importHistoryController {
   async getAllProduct(req, res) {
@@ -15,15 +16,10 @@ class importHistoryController {
           }
           return isValid;
         });
-        return res.status(200).json({
-          page: 0,
-          limit: 0,
-          data: { filteredProducts },
-          message: "Sucessfully",
-        });
+        return Response.paginate(res, 0, 0, filteredProducts);
       })
       .catch((err) => {
-        console.log(err);
+        return Response.error(res, err);
       });
   }
 
@@ -32,14 +28,10 @@ class importHistoryController {
     await importHistory
       .bulkCreate(list)
       .then((result) => {
-        return res.json({
-          status: 200,
-          data: {},
-          message: "Create list history successfull",
-        });
+        return Response.success(res, list);
       })
       .catch((err) => {
-        console.log(err);
+        return Response.error(res, err);
       });
   }
 
@@ -47,13 +39,14 @@ class importHistoryController {
     await importHistory
       .findByPk(req.params.id)
       .then((result) => {
-        return res.status(200).json({
-          data: { result },
-          message: "Sucessfully",
-        });
+        return Response.success(res, result);
+        // return res.status(200).json({
+        //   data: { result },
+        //   message: "Sucessfully",
+        // });
       })
       .catch((err) => {
-        console.log(err);
+        return Response.error(res, err);
       });
   }
 
@@ -63,9 +56,10 @@ class importHistoryController {
 
       return res.status(200).send("Updated!");
     } catch (error) {
-      return res.json({
-        Error: "Something went wrong! Check this message: " + error,
-      });
+      // return res.json({
+      //   Error: "Something went wrong! Check this message: " + error,
+      // });
+      return Response.error(res, error);
     }
   }
 
@@ -79,9 +73,10 @@ class importHistoryController {
 
       return res.status(200).send("Deleted!");
     } catch (error) {
-      return res.json({
-        Error: "Something went wrong! Check this message: " + error,
-      });
+      // return res.json({
+      //   Error: "Something went wrong! Check this message: " + error,
+      // });
+      return Response.error(res, error);
     }
   }
 }

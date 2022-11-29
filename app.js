@@ -65,9 +65,13 @@ app.get("/", (req, res) => {
         msg: "Nha cung cap: ",
         link: "http://localhost:" + port + "/api/v1/supplier",
       },
+      // {
+      //   msg: "Swagger: ",
+      //   link: "http://localhost:" + port + "/docs",
+      // },
       {
-        msg: "Swagger: ",
-        link: "http://localhost:" + port + "/docs",
+        msg: "Postman: ",
+        link: "https://app.getpostman.com/join-team?invite_code=eeb25a954da82967e8810eb1b387a645&target_code=fa28cf6c6b5b69d3045b24b33865051d",
       },
     ],
   });
