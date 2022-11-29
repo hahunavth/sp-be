@@ -38,8 +38,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 // NOTE: add new routes here!
-app.use("/api/v1/importProduct", importHistory);
-app.use("/exportProduct", exportRouter);
+app.use("/api/v1/import-product", importHistory);
+app.use("/api/v1/export-product", exportRouter);
 app.use("/api/v1/supplier", supplier);
 
 app.get("/", (req, res) => {

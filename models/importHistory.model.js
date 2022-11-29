@@ -1,9 +1,8 @@
 module.exports = (sequelize, DataTypes) => {
   const import_history = sequelize.define(
-    'import_history',
+    "import_history",
     {
-      IdSupplier: DataTypes.INTEGER,
-      IdProduct: DataTypes.INTEGER,
+      IdProduct: { type: DataTypes.INTEGER, primaryKey: true },
       Size: DataTypes.STRING,
       Color: DataTypes.STRING,
       Amount: DataTypes.INTEGER,
@@ -14,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       paranoid: false,
       freezeTableName: true,
-      tableName: 'import_history',
+      tableName: "import_history",
     }
   );
 

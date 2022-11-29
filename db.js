@@ -30,6 +30,7 @@ db.import_history = require("./models/importHistory.model")(
   sequelize,
   DataTypes
 );
+
 db.supplier = require("./models/supplier.model")(sequelize, DataTypes);
 
 db.sequelize

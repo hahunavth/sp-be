@@ -1,6 +1,6 @@
-const db = require('../db');
+const db = require("../db");
 const importHistory = db.import_history;
-const newHistoryList = require('../config/config.json');
+const newHistoryList = require("../config/config.json");
 
 class importHistoryController {
   async getAllProduct(req, res) {
@@ -19,7 +19,7 @@ class importHistoryController {
           page: 0,
           limit: 0,
           data: { filteredProducts },
-          message: 'Sucessfully',
+          message: "Sucessfully",
         });
       })
       .catch((err) => {
@@ -35,7 +35,7 @@ class importHistoryController {
         return res.json({
           status: 200,
           data: {},
-          message: 'Create list history successfull',
+          message: "Create list history successfull",
         });
       })
       .catch((err) => {
@@ -49,7 +49,7 @@ class importHistoryController {
       .then((result) => {
         return res.status(200).json({
           data: { result },
-          message: 'Sucessfully',
+          message: "Sucessfully",
         });
       })
       .catch((err) => {
@@ -61,10 +61,10 @@ class importHistoryController {
     try {
       await importHistory.update(req.body, { where: { id: req.params.id } });
 
-      return res.status(200).send('Updated!');
+      return res.status(200).send("Updated!");
     } catch (error) {
       return res.json({
-        Error: 'Something went wrong! Check this message: ' + error,
+        Error: "Something went wrong! Check this message: " + error,
       });
     }
   }
@@ -77,10 +77,10 @@ class importHistoryController {
         },
       });
 
-      return res.status(200).send('Deleted!');
+      return res.status(200).send("Deleted!");
     } catch (error) {
       return res.json({
-        Error: 'Something went wrong! Check this message: ' + error,
+        Error: "Something went wrong! Check this message: " + error,
       });
     }
   }
