@@ -2,17 +2,17 @@ module.exports = (sequelize, DataTypes) => {
   const supplier = sequelize.define(
     "supplier",
     {
-      Id: {
+      product_id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
       },
-      Name: DataTypes.STRING,
-      Phone: DataTypes.STRING,
-      Email: DataTypes.STRING,
-      Address: DataTypes.STRING,
-      Star: DataTypes.INTEGER,
-      CREATEBY: DataTypes.STRING,
-      UPDATEBY: DataTypes.STRING,
+      name: DataTypes.STRING,
+      phone: DataTypes.STRING,
+      email: DataTypes.STRING,
+      address: DataTypes.STRING,
+      star: DataTypes.INTEGER,
+      created_by: DataTypes.STRING,
+      updated_by: DataTypes.STRING,
     },
     {
       paranoid: false,

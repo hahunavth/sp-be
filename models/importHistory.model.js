@@ -2,13 +2,13 @@ module.exports = (sequelize, DataTypes) => {
   const import_history = sequelize.define(
     "import_history",
     {
-      IdProduct: { type: DataTypes.INTEGER, primaryKey: true },
-      Size: DataTypes.STRING,
-      Color: DataTypes.STRING,
-      Amount: DataTypes.INTEGER,
-      Money: DataTypes.INTEGER,
-      CREATEBY: DataTypes.STRING,
-      UPDATEBY: DataTypes.STRING,
+      id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+      size: DataTypes.INTEGER,
+      color: DataTypes.INTEGER,
+      quantity: DataTypes.INTEGER,
+      cost: DataTypes.INTEGER,
+      created_by: DataTypes.STRING,
+      updated_by: DataTypes.STRING,
     },
     {
       paranoid: false,

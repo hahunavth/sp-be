@@ -33,6 +33,12 @@ db.import_history = require("./models/importHistory.model")(
 
 db.supplier = require("./models/supplier.model")(sequelize, DataTypes);
 
+// relation
+db.supplier.hasMany(db.import_history, {
+  foreignKey: "product_id",
+});
+db.import_history.belongsTo(db.supplier);
+
 db.sequelize
   .sync({ force: false })
   .then((result) => {
