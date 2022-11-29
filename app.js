@@ -13,6 +13,7 @@ var router = express.Router();
 const connectDb = require("./db.js");
 
 var importHistory = require("./routes/importHistory");
+var exportRouter = require("./routes/export");
 
 var app = express();
 connectDb;
@@ -38,10 +39,11 @@ app.use(express.static(path.join(__dirname, "public")));
 
 // NOTE: add new routes here!
 app.use("/api/v1/importProduct", importHistory);
+app.use("/exportProduct", exportRouter);
 
 app.get("/", (req, res) => {
   res.render("index", {
-    title: "SP_17",
+    title: "SP_17 - M03",
     messages: [
       {
         msg: "Hello there!",
@@ -64,7 +66,7 @@ app.get("/", (req, res) => {
       },
       {
         msg: "Swagger: ",
-        link: "https://app.swaggerhub.com/apis/VUTHANHHA2001/spdoc/1.0.11#/importProduct/get_importProduct",
+        link: "http://localhost:" + port + "/docs",
       },
     ],
   });
