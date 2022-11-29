@@ -1,0 +1,473 @@
+---
+openapi: 3.0.3
+info:
+  title: M03 - Accounting (Nhập / xuất hàng) - SP_17
+  description: "# Chức năng yêu cầu \n## Họp ngày 24/11\n\n- Nhập: update số lượng(gọi API của kho) và có bảng lưu  trữ giá nhập từ nhà cung cấp.( lấy list sản phẩm(bao gồm cả size và màu sắc) từ bên kho), lưu data của nhà cung cấp và giá nhập, ngày nhập.(có giao diện)\n  Tạo sp mới ???\n\n- Xuất: nhận được yêu cầu xuất hàng từ quản lý đơn hàng->gọi API từ kho để update số lượng. gửi yêu cầu vận chuyển cho bên vận chuyển.(chỉ xử lý backend).\n  \n## Update 26/11\n- Flow **xuất hàng mới (bên delivery yêu cầu)**:\n  1. Payment(QL đơn hàng) -> Accounting (in: danh dach id mat hang va so luong) -> Warehouse (update số lượng trong kho), Delivery (**orderId**)\n  2. **Delivery -> Payment (get delivery info)**\n\n****\n\n# Internal\n## Database\n- Lưu danh sách nhà cung cấp (Supplier). \n  - Field: \n    - ...\n  - Relation:\n    - Supplier - ProductInfo: 1 - n\n- Lịch sử nhập hàng (Import History)\n  - Field:\n    - Số tiền nhập (số tiền tốn để nhập hàng)\n    - ...\n  - Relation:\n    - ImportHistory - Supplier: 1 - 1\n    - ProductInfo - ProductInfo: 1 - n\n    \n## Api sử dụng nội bộ\n\n`Lưu ý với route getAll: cần phân trang bằng param offset, limit và filter với name, ...`\n\n- **SP_17** CRUD /importHistory - CRUD lịch sử nhập hàng sử dụng trong màn hình nhập hàng \n- **SP_17** CRUD /supplier - CRUD danh sách nhà cung cấp \n\n\n# <s>\n- **SP_05** GET /importCost - Chi phí nhập hàng\n  - Request:\n    - Param:\n      - StartAt?: DateString\n      - EndAt?: DateString\n      - ProductIds?: Int | Array\\<Int>\n  - ...\n- **SP_05** ...\n# </s>\n\n****\n\n# External   \n## Yêu cầu cung cấp API đầu vào \n*Chưa đươc cung cấp -> sử dụng mockapi*\n- **SP_17** GET M01/products  - Thông tin về các loại sản phẩm  (id, tên, size, mô tả ...)\n  - Request:\n    - Body: None\n  - Response\n    - Body: \n      ```json\n      {\n        products: ProductInfo[],\n        ...\n      }\n      ```\n- **SP_17** POST M02/requestShipping - Yêu cầu bên vận chuyển vận chuyển hàng  ?Bên vận chuyển có quản lý tr thái vận chuyển không (chờ lấy hàng, đang giao hàng, đã giao hàng)?\n  - Request:\n    - Body: Order\n  - Response: \n    - Body: \n      ```json\n      {\n        status: \"success\" | \"error\",\n        ...\n      }\n      ```\n      \n# <s>\n  - **SP_05** GET O02/turnover - Doanh thu (số tiền từ đơn hàng) \n  - **SP_05** ...\n# </s>\n## API cung cấp cho module khác\n- **SP_17** POST /exportProduct - Cho O02 (sau khi bấm thanh toán thì O02 gọi)\n\n## User Interface (Front end)\n- CRUD importHistory\n- CRUD supplier\n<s>\n- **SP_05** Statistical \n</s>"
+  version: 1.0.11
+servers:
+  - url: http://localhost:8080/api/v1
+tags:
+  - name: importProduct
+    description: Nhập hàng
+  - name: supplier
+    description: CRUD Nhà cung cấp
+  - name: exportProduct
+    description: Xuất hàng
+paths:
+  /importProduct:
+    get:
+      tags:
+        - importProduct
+      summary: Danh sách lịch sử nhập hàng
+      parameters:
+        - name: limit
+          in: query
+          description: Limits the number of returned results
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int32
+        - name: offset
+          in: query
+          description: Offset from which start returned results
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int32
+        - name: name
+          in: query
+          description: Filter by name
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: string
+        - name: size
+          in: query
+          description: Filter by name
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: string
+        - name: color
+          in: query
+          description: Filter by name
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PaginateApiResponse"
+    post:
+      tags:
+        - importProduct
+      summary: Thêm lịch sử nhập hàng
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ImportHistoryDto"
+        required: true
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ImportHistory"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/ImportHistory"
+  /importProduct/{id}:
+    get:
+      tags:
+        - importProduct
+      summary: Returns an import history
+      operationId: getImportHistoryById
+      parameters:
+        - name: id
+          in: path
+          description: ID of record to return
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ImportHistory"
+    put:
+      tags:
+        - importProduct
+      summary: Sửa lịch sử nhập hàng
+      parameters:
+        - name: id
+          in: path
+          description: ID of record to return
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ImportHistoryDto"
+        required: true
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ImportHistory"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/ImportHistory"
+    delete:
+      tags:
+        - importProduct
+      summary: Delete an import history
+      operationId: deleteImportHistoryById
+      parameters:
+        - name: id
+          in: path
+          description: ID of record to return
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: successful operation
+  /supplier:
+    get:
+      tags:
+        - supplier
+      summary: Danh sách nhà cung cấp
+      parameters:
+        - name: limit
+          in: query
+          description: Limits the number of returned results
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int32
+        - name: offset
+          in: query
+          description: Offset from which start returned results
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int32
+        - name: name
+          in: query
+          description: Filter by name
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: string
+        - name: size
+          in: query
+          description: Filter by name
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: string
+        - name: color
+          in: query
+          description: Filter by name
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PaginateApiResponse"
+    post:
+      tags:
+        - supplier
+      summary: Thêm nhà cung cấp (lưu ý cần thêm cả các mặt hàng mà nhà cung cấp này bán)
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SupplierDto"
+        required: true
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Supplier"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/Supplier"
+  /supplier/{id}:
+    get:
+      tags:
+        - supplier
+      summary: Trả về 1 nhà cung cấp và id cacs mặt hàng họ cung cấp
+      operationId: getSupplierById
+      parameters:
+        - name: id
+          in: path
+          description: ID of record to return
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Supplier"
+    put:
+      tags:
+        - supplier
+      summary: Sửa lịch sử nhập hàng
+      parameters:
+        - name: id
+          in: path
+          description: ID of record to return
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SupplierDto"
+        required: true
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Supplier"
+    delete:
+      tags:
+        - supplier
+      summary: Xóa 1 nhà cung cấp
+      operationId: deleteSupplierById
+      parameters:
+        - name: id
+          in: path
+          description: ID of record to return
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: successful operation
+  /exportProduct:
+    post:
+      tags:
+        - exportProduct
+      description: "## Input:\n  - Request.Body: yêu cầu xuất hàng từ quản lý đơn hàng\n## Xử lý:\n  - Gọi API từ kho để update số lượng (Input:  RequestBody.products)\n  - Gửi yêu cầu vận chuyển cho bên vận chuyển  (Input: RequestBody chỉ  hứa id  đơn hàng ) **Đã chốt với bên delivery 26/11**\n## Output:\n  - Thành công hoặc báo lỗi khi kho k còn đủ số lượng hoặc thông tin  giao hàng k chính xác      "
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Order"
+        required: true
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+        "400":
+          description: Invalid ID supplied
+        "404":
+          description: Product not found
+        "405":
+          description: Validation exception
+components:
+  schemas:
+    ImportHistory:
+      type: object
+    ImportHistoryDto:
+      type: object
+    Supplier:
+      type: object
+    SupplierDto:
+      type: object
+    Product:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 10
+        size:
+          type: string
+          example: M
+        color:
+          type: string
+          example: red
+        quantity:
+          type: number
+          example: 2
+      description: Sử dụng để định danh mặt hàng và số lượng
+    ShippingInfo:
+      type: object
+      properties:
+        from:
+          type: string
+        to:
+          type: string
+      description: Thông tin địa điểm
+    Order:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 10
+        products:
+          type: array
+          items:
+            $ref: "#/components/schemas/Product"
+        shippingInfo:
+          $ref: "#/components/schemas/ShippingInfo"
+        shipDate:
+          type: string
+          format: date-time
+      description: Đơn hàng bao gồm nhiều sản phẩm
+    ApiResponse:
+      type: object
+      properties:
+        data:
+          type: object
+        message:
+          type: string
+          default: Sucessfully
+      xml:
+        name: "##default"
+    PaginateApiResponse:
+      type: object
+      properties:
+        page:
+          type: integer
+        limit:
+          type: integer
+        data:
+          type: object
+        message:
+          type: string
+          default: Sucessfully
+      xml:
+        name: "##default"
+  parameters:
+    idParam:
+      name: id
+      in: path
+      description: ID of record to return
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: integer
+        format: int64
+    limitParam:
+      name: limit
+      in: query
+      description: Limits the number of returned results
+      required: false
+      style: form
+      explode: true
+      schema:
+        type: integer
+        format: int32
+    offsetParam:
+      name: offset
+      in: query
+      description: Offset from which start returned results
+      required: false
+      style: form
+      explode: true
+      schema:
+        type: integer
+        format: int32
+    nameFilter:
+      name: name
+      in: query
+      description: Filter by name
+      required: false
+      style: form
+      explode: true
+      schema:
+        type: string
+    sizeFilter:
+      name: size
+      in: query
+      description: Filter by name
+      required: false
+      style: form
+      explode: true
+      schema:
+        type: string
+    colorFilter:
+      name: color
+      in: query
+      description: Filter by name
+      required: false
+      style: form
+      explode: true
+      schema:
+        type: string
+  requestBodies:
+    Order:
+      description: Đơn hàng cần nhập hàng
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Order"
