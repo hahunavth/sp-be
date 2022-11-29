@@ -27,6 +27,7 @@ db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
 db.products = require("./models/product.model")(sequelize, DataTypes);
+db.exports = require("./models/export.model")(sequelize, DataTypes);
 
 db.sequelize
   .sync({ force: false })

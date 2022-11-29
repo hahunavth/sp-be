@@ -5,9 +5,11 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var router = express.Router();
-const connectDb = require('./db.js');
+
+const connectDb = require('./db');
 
 var productRouter = require('./routes/product');
+var exportRouter = require('./routes/export')
 
 var app = express();
 connectDb;
@@ -25,6 +27,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/importProduct', productRouter);
+app.use('/exportProduct', exportRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

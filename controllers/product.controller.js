@@ -2,6 +2,23 @@ const db = require('../db');
 const product = db.products;
 
 class ProductController {
+
+  async create(req, res) {
+    try {
+          // const {name, size, color} = req.body;
+    // const prod = await product.create({
+    //   name: "a",
+    //   size: "b",
+
+    // })
+
+    res.status(200).json(req.body)
+    }
+    catch(e) {
+      console.log(e)
+    }
+  }
+
   async getAllProduct(req, res) {
     await product
       .findAll()
