@@ -24,7 +24,7 @@ class ExportController {
     //Kiểm tra tính khả dụng của đơn hàng
     // if(req.)
     // goi api kho
-    const response = await fetch('http://localhost/getAmount/id/'+req.body.productId+'/size/'+req.body.size+'/color/'+req.body.color);
+    const response = await fetch('http://localhost/getInfoProduct/id/'+req.body.productId+'/size/'+req.body.size+'/color/'+req.body.color);
     const resJson = await response.json();
 
     if(dataProduct.quantity < resJson.Amount){
