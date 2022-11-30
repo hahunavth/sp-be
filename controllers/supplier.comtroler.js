@@ -25,17 +25,17 @@ class supplierController {
 
     await supplier
       .findAll()
-      .then((result) => {
-        const filters = req.query;
-        const filteredSuppliers = result.filter((supplier) => {
-          let isValid = true;
-          for (let key in filters) {
-            isValid = isValid && supplier[key] == filters[key];
-          }
-          return isValid;
-        });
+      .then(async (result) => {
+        // const filters = req.query;
+        // const filteredSuppliers = result.filter((supplier) => {
+        //   let isValid = true;
+        //   for (let key in filters) {
+        //     isValid = isValid && supplier[key] == filters[key];
+        //   }
+        //   return isValid;
+        // });
 
-        const data = filteredSuppliers.findAndCountAll({
+        const data = await supplier.findAndCountAll({
           where: {},
           order: [],
           limit,

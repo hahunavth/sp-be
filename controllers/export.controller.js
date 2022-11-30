@@ -1,5 +1,5 @@
-const db = require('../models/index');
-const Response = require('../utils/responses');
+const db = require("../models/index");
+const Response = require("../utils/responses");
 
 class ExportController {
   async exportProduct(req, res) {
@@ -10,7 +10,7 @@ class ExportController {
       Response.input(res);
     }
 
-    const dateShip = new Date();
+    // const dateShip = new Date();
     //Kiểm tra tính khả dụng của đơn hàng
     // if(req.)
     // goi api kho
@@ -28,7 +28,7 @@ class ExportController {
     //   res.send("Khong du so luong");
     // }
 
-    Response.success(res, {
+    return Response.success(res, {
       products,
       ship_info,
       data_ship: [],
