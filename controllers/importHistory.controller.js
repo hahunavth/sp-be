@@ -1,8 +1,8 @@
-const db = require("../models/index");
-const importHistory = db["import_history"];
+const db = require('../models/index');
+const importHistory = db['import_history'];
 // const newHistoryList = require("../config/config.json");
-const Response = require("../utils/responses");
-const QueryParser = require("../utils/query");
+const Response = require('../utils/responses');
+const QueryParser = require('../utils/query');
 
 class importHistoryController {
   async getAllProduct(req, res) {
@@ -54,16 +54,18 @@ class importHistoryController {
   }
 
   async updateHistory(req, res) {
-    try {
-      await importHistory.update(req.body, { where: { id: req.params.id } });
+    // try {
+    const updated = await importHistory.update(req.body, {
+      where: { id: req.params.id },
+    });
 
-      return res.status(200).send("Updated!");
-    } catch (error) {
-      // return res.json({
-      //   Error: "Something went wrong! Check this message: " + error,
-      // });
-      return Response.error(res, error);
-    }
+    return Response.success(res);
+    // } catch (error) {
+    //   // return res.json({
+    //   //   Error: "Something went wrong! Check this message: " + error,
+    //   // });
+    //   return Response.error(res, error);
+    // }
   }
 
   async deleteHistory(req, res) {
@@ -74,7 +76,7 @@ class importHistoryController {
         },
       });
 
-      return res.status(200).send("Deleted!");
+      return res.status(200).send('Deleted!');
     } catch (error) {
       // return res.json({
       //   Error: "Something went wrong! Check this message: " + error,

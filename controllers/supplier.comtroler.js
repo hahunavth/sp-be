@@ -1,7 +1,7 @@
-const db = require("../models/index");
-const supplier = db["supplier"];
+const db = require('../models/index');
+const supplier = db['supplier'];
 // const newSupplier = require("../config/config.json");
-const Response = require("../utils/responses");
+const Response = require('../utils/responses');
 
 class supplierController {
   /**
@@ -32,12 +32,7 @@ class supplierController {
           }
           return isValid;
         });
-        // return res.status(200).json({
-        //   page: 0,
-        //   limit: 0,
-        //   data: { filteredSuppliers },
-        //   message: 'Sucessfully',
-        // });
+
         return Response.paginate(res, filteredSuppliers);
       })
       .catch((err) => {
@@ -46,20 +41,15 @@ class supplierController {
   }
 
   async createHistory(req, res) {
-    const list = newSupplier.supplier;
-    await supplier
-      .bulkCreate(list)
-      .then((result) => {
-        // return res.json({
-        //   status: 200,
-        //   data: {},
-        //   message: "Create list history successfull",
-        // });
-        return Response.success(res, list);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    try {
+      // const list = newHistoryList.importHistory;
+      const data = req.body;
+      // TODO: VALIDATE DATA
+      const newRecord = await supplier.create(data);
+      return Response.success(res, newRecord.toJSON());
+    } catch (e) {
+      Response.error(res, e);
+    }
   }
 
   async findById(req, res) {
@@ -79,16 +69,11 @@ class supplierController {
   }
 
   async updateHistory(req, res) {
-    try {
-      await supplier.update(req.body, { where: { id: req.params.id } });
+    const updated = await supplier.update(req.body, {
+      where: { id: req.params.id },
+    });
 
-      return res.status(200).send("Updated!");
-    } catch (error) {
-      // return res.json({
-      //   Error: "Something went wrong! Check this message: " + error,
-      // });
-      return Response.error(res, error);
-    }
+    return Response.success(res);
   }
 
   async deleteHistory(req, res) {
@@ -99,7 +84,7 @@ class supplierController {
         },
       });
 
-      return res.status(200).send("Deleted!");
+      return res.status(200).send('Deleted!');
     } catch (error) {
       // return res.json({
       //   Error: "Something went wrong! Check this message: " + error,
