@@ -5,6 +5,7 @@ const Response = require("../utils/responses");
 
 class supplierController {
   async getAllSupplier(req, res) {
+    // TODO: paginate
     await supplier
       .findAll()
       .then((result) => {

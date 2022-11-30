@@ -9,7 +9,7 @@ const sequelize = new Sequelize(
   {
     host: process.env.MYSQL_HOST || "localhost",
     port: process.env.MYSQL_PORT,
-    dialect: "mysql",
+    dialect: process.env.DIALECT || "mysql",
   }
 );
 
@@ -26,14 +26,14 @@ const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
+// STUB: import model
 db.import_history = require("./models/importHistory.model")(
   sequelize,
   DataTypes
 );
-
 db.supplier = require("./models/supplier.model")(sequelize, DataTypes);
 
-// relation
+// STUB: relation
 db.supplier.hasMany(db.import_history, {
   foreignKey: "product_id",
 });

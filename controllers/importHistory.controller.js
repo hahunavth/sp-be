@@ -5,6 +5,7 @@ const Response = require("../utils/responses");
 
 class importHistoryController {
   async getAllProduct(req, res) {
+    // TODO: paginate
     await importHistory
       .findAll()
       .then((result) => {

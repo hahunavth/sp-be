@@ -6,8 +6,20 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         primaryKey: true,
       },
-      name: DataTypes.STRING,
-      phone: DataTypes.STRING,
+      name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notNull: { msg: "name is required" },
+        },
+      },
+      phone: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          len: [5, 10],
+        },
+      },
       email: DataTypes.STRING,
       address: DataTypes.STRING,
       star: DataTypes.INTEGER,
