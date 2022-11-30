@@ -5,9 +5,9 @@ var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 const cors = require("cors");
-const swaggerUi = require("swagger-ui-express");
-const YAML = require("yamljs");
-const swaggerDocument = YAML.load("./swagger.yaml");
+// const swaggerUi = require("swagger-ui-express");
+// const YAML = require("yamljs");
+// const swaggerDocument = YAML.load("./swagger.yaml");
 
 var router = express.Router();
 const connectDb = require("./db.js");
