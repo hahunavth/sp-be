@@ -1,6 +1,7 @@
 const { Sequelize, DataTypes } = require("sequelize");
 require("dotenv").config();
 const path = require("path");
+const pg = require("pg");
 
 const sequelize = new Sequelize(
   process.env.MYSQL_DATABASE,
@@ -10,6 +11,7 @@ const sequelize = new Sequelize(
     host: process.env.MYSQL_HOST || "localhost",
     port: process.env.MYSQL_PORT,
     dialect: process.env.DIALECT || "mysql",
+    dialectModule: process.env.DIALECT == "postgres" ? pg : undefined,
   }
 );
 

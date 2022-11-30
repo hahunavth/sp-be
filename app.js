@@ -30,7 +30,7 @@ let port = process.env.PORT || 8080;
 // app.set("views", path.join(__dirname, "views"));
 // app.set("view engine", "jade");
 
-app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+// app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
