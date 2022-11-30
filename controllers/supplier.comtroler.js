@@ -1,6 +1,6 @@
 const db = require("../db");
 const supplier = db.supplier;
-const newSupplier = require("../config/config.json");
+// const newSupplier = require("../config/config.json");
 const Response = require("../utils/responses");
 
 class supplierController {

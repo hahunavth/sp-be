@@ -1,6 +1,6 @@
 const db = require("../db");
 const importHistory = db.import_history;
-const newHistoryList = require("../config/config.json");
+const newHistoryList = require("../config/config");
 const Response = require("../utils/responses");
 const QueryParser = require("../utils/query");
 
@@ -12,20 +12,16 @@ class importHistoryController {
       // TODO: filter by attr
       await importHistory.findAll().then(async (result) => {
         const filters = req.query;
-        // const filteredProducts = result.filter((product) => {
-        //   let isValid = true;
-        //   for (let key in filters) {
-        //     isValid = isValid && product[key] == filters[key];
-        //   }
-        //   return isValid;
-        // });
-
-        const data = await importHistory.findAndCountAll({
-          where: {},
-          order: [],
-          limit,
-          offset,
-        });
+        try {
+          const data = await importHistory.findAndCountAll({
+            where: {},
+            order: [],
+            limit,
+            offset,
+          });
+        } catch (e) {
+          return Response.error(res, err);
+        }
 
         return Response.paginate(res, page, limit, data?.count, data?.rows);
       });

@@ -10,7 +10,7 @@ const cors = require("cors");
 // const swaggerDocument = YAML.load("./swagger.yaml");
 
 var router = express.Router();
-const connectDb = require("./db.js");
+const connectDb = require("./models/index");
 
 var importHistory = require("./routes/importHistory");
 var exportRouter = require("./routes/export");

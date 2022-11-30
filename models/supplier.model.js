@@ -37,5 +37,12 @@ module.exports = (sequelize, DataTypes) => {
     }
   );
 
+  supplier.associate = function (models) {
+    // associations can be defined here
+    supplier.hasMany(models.import_history, {
+      foreignKey: "product_id",
+    });
+  };
+
   return supplier;
 };

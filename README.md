@@ -27,7 +27,9 @@ npm install
 - Go to: http://localhost:8080/docs
 
 ## DB migration
+https://sequelize.org/docs/v6/other-topics/migrations/#installing-the-cli
 ```bash
 npm install --save-dev sequelize-cli
-
+npx sequelize-cli db:create
+npx sequelize-cli db:migrate
 ```
