@@ -15,6 +15,7 @@ const connectDb = require("./models/index");
 var importHistory = require("./routes/importHistory");
 var exportRouter = require("./routes/export");
 var supplier = require("./routes/supplier");
+var prodPrice = require("./routes/prod-price");
 var app = express();
 connectDb;
 
@@ -41,6 +42,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/api/v1/import-product", importHistory);
 app.use("/api/v1/export-product", exportRouter);
 app.use("/api/v1/supplier", supplier);
+app.use("/api/v1/product-price", prodPrice);
 
 app.get("/", (req, res) => {
   res.render("index", {

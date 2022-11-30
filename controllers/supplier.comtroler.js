@@ -1,5 +1,5 @@
-const db = require("../db");
-const supplier = db.supplier;
+const db = require("../models/index");
+const supplier = db["supplier"];
 // const newSupplier = require("../config/config.json");
 const Response = require("../utils/responses");
 
@@ -11,7 +11,7 @@ class supplierController {
   async getProductImportPriceList(req, res) {
     try {
       const data = await supplier.findAll({
-        attributes: { include: ["product_id", "price"] },
+        // attributes: { include: ["product_id", "price"] },
       });
       return Response.success(res, data);
     } catch (e) {

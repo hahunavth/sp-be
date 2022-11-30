@@ -38,6 +38,7 @@ fs.readdirSync(__dirname)
       sequelize,
       Sequelize.DataTypes
     );
+    console.log("DB_MODEL_NAME: " + model.name);
     db[model.name] = model;
   });
 
@@ -51,7 +52,7 @@ db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
 db.sequelize
-  .sync({ force: true })
+  .sync({ force: false })
   .then((result) => {
     console.log("DB Connect successfully");
   })

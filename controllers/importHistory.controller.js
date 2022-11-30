@@ -1,6 +1,6 @@
-const db = require("../db");
-const importHistory = db.import_history;
-const newHistoryList = require("../config/config");
+const db = require("../models/index");
+const importHistory = db["import_history"];
+// const newHistoryList = require("../config/config.json");
 const Response = require("../utils/responses");
 const QueryParser = require("../utils/query");
 
@@ -19,11 +19,11 @@ class importHistoryController {
             limit,
             offset,
           });
+
+          return Response.paginate(res, page, limit, data?.count, data?.rows);
         } catch (e) {
           return Response.error(res, err);
         }
-
-        return Response.paginate(res, page, limit, data?.count, data?.rows);
       });
     } catch (err) {
       return Response.error(res, err);

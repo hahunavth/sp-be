@@ -1,5 +1,4 @@
-const db = require("../db");
-const Export1 = db.exports;
+const db = require("../models/index");
 const Response = require("../utils/responses");
 
 class ExportController {
