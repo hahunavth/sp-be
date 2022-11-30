@@ -27,8 +27,8 @@ app.use(
 let port = process.env.PORT || 8080;
 
 // view engine setup
-app.set("views", path.join(__dirname, "views"));
-app.set("view engine", "jade");
+// app.set("views", path.join(__dirname, "views"));
+// app.set("view engine", "jade");
 
 app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use(logger("dev"));
