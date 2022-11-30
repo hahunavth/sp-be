@@ -23,6 +23,7 @@ class supplierController {
   async getAllSupplier(req, res) {
     // TODO: paginate
     const { limit, offset, page } = QueryParser.paginate(req);
+
     await supplier
       .findAll()
       .then((result) => {
