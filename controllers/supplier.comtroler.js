@@ -2,6 +2,7 @@ const db = require('../models/index');
 const supplier = db['supplier'];
 // const newSupplier = require("../config/config.json");
 const Response = require('../utils/responses');
+const QueryParser = require('../utils/query');
 
 class supplierController {
   /**
@@ -21,6 +22,7 @@ class supplierController {
 
   async getAllSupplier(req, res) {
     // TODO: paginate
+    const { limit, offset, page } = QueryParser.paginate(req);
     await supplier
       .findAll()
       .then((result) => {
@@ -33,7 +35,13 @@ class supplierController {
           return isValid;
         });
 
-        return Response.paginate(res, filteredSuppliers);
+        const data = filteredSuppliers.findAndCountAll({
+          where: {},
+          order: [],
+          limit,
+          offset,
+        });
+        return Response.paginate(res, page, limit, data?.count, data?.rows);
       })
       .catch((err) => {
         return Response.error(res, err);
@@ -69,11 +77,14 @@ class supplierController {
   }
 
   async updateHistory(req, res) {
-    const updated = await supplier.update(req.body, {
-      where: { id: req.params.id },
-    });
-
-    return Response.success(res);
+    try {
+      const updated = await supplier.update(req.body, {
+        where: { id: req.params.id },
+      });
+      return Response.success(res);
+    } catch (e) {
+      Response.error(res, e);
+    }
   }
 
   async deleteHistory(req, res) {
@@ -84,7 +95,7 @@ class supplierController {
         },
       });
 
-      return res.status(200).send('Deleted!');
+      return Response.success(res);
     } catch (error) {
       // return res.json({
       //   Error: "Something went wrong! Check this message: " + error,

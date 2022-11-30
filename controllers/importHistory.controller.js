@@ -12,6 +12,7 @@ class importHistoryController {
       // TODO: filter by attr
       await importHistory.findAll().then(async (result) => {
         const filters = req.query;
+        console.log('day la :', filters);
         try {
           const data = await importHistory.findAndCountAll({
             where: {},
@@ -54,18 +55,14 @@ class importHistoryController {
   }
 
   async updateHistory(req, res) {
-    // try {
-    const updated = await importHistory.update(req.body, {
-      where: { id: req.params.id },
-    });
-
-    return Response.success(res);
-    // } catch (error) {
-    //   // return res.json({
-    //   //   Error: "Something went wrong! Check this message: " + error,
-    //   // });
-    //   return Response.error(res, error);
-    // }
+    try {
+      const updated = await importHistory.update(req.body, {
+        where: { id: req.params.id },
+      });
+      return Response.success(res);
+    } catch (e) {
+      Response.error(res, e);
+    }
   }
 
   async deleteHistory(req, res) {
@@ -76,7 +73,7 @@ class importHistoryController {
         },
       });
 
-      return res.status(200).send('Deleted!');
+      return Response.success(res);
     } catch (error) {
       // return res.json({
       //   Error: "Something went wrong! Check this message: " + error,
