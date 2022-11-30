@@ -4,6 +4,21 @@ const newSupplier = require("../config/config.json");
 const Response = require("../utils/responses");
 
 class supplierController {
+  /**
+   * NOTE - api cung cấp danh sách gồm product_id và giá nhập của tất cả sp
+   * LINK - cung cấp cho module Product
+   */
+  async getProductImportPriceList(req, res) {
+    try {
+      const data = await supplier.findAll({
+        attributes: { include: ["product_id", "price"] },
+      });
+      return Response.success(res, data);
+    } catch (e) {
+      return Response.error(res, e);
+    }
+  }
+
   async getAllSupplier(req, res) {
     // TODO: paginate
     await supplier

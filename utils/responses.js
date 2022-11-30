@@ -21,12 +21,13 @@ class Response {
     });
   }
 
-  static paginate(res, page, limit, data, message) {
+  static paginate(res, page, limit, count, data, message) {
     return res.status(200).json({
       status: 200,
       message: message || "Successfully",
       page,
       limit,
+      count,
       data,
     });
   }

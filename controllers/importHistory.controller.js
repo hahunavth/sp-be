@@ -2,38 +2,48 @@ const db = require("../db");
 const importHistory = db.import_history;
 const newHistoryList = require("../config/config.json");
 const Response = require("../utils/responses");
+const QueryParser = require("../utils/query");
 
 class importHistoryController {
   async getAllProduct(req, res) {
-    // TODO: paginate
-    await importHistory
-      .findAll()
-      .then((result) => {
+    try {
+      const { limit, offset, page } = QueryParser.paginate(req);
+      // NOTE: paginate
+      // TODO: filter by attr
+      await importHistory.findAll().then(async (result) => {
         const filters = req.query;
-        const filteredProducts = result.filter((product) => {
-          let isValid = true;
-          for (let key in filters) {
-            isValid = isValid && product[key] == filters[key];
-          }
-          return isValid;
+        // const filteredProducts = result.filter((product) => {
+        //   let isValid = true;
+        //   for (let key in filters) {
+        //     isValid = isValid && product[key] == filters[key];
+        //   }
+        //   return isValid;
+        // });
+
+        const data = await importHistory.findAndCountAll({
+          where: {},
+          order: [],
+          limit,
+          offset,
         });
-        return Response.paginate(res, 0, 0, filteredProducts);
-      })
-      .catch((err) => {
-        return Response.error(res, err);
+
+        return Response.paginate(res, page, limit, data?.count, data?.rows);
       });
+    } catch (err) {
+      return Response.error(res, err);
+    }
   }
 
   async createHistory(req, res) {
-    const list = newHistoryList.importHistory;
-    await importHistory
-      .bulkCreate(list)
-      .then((result) => {
-        return Response.success(res, list);
-      })
-      .catch((err) => {
-        return Response.error(res, err);
-      });
+    try {
+      // const list = newHistoryList.importHistory;
+      const data = req.body;
+      // TODO: VALIDATE DATA
+      const newRecord = await importHistory.create(data);
+      return Response.success(res, newRecord.toJSON());
+    } catch (e) {
+      Response.error(res, e);
+    }
   }
 
   async findById(req, res) {
@@ -41,10 +51,6 @@ class importHistoryController {
       .findByPk(req.params.id)
       .then((result) => {
         return Response.success(res, result);
-        // return res.status(200).json({
-        //   data: { result },
-        //   message: "Sucessfully",
-        // });
       })
       .catch((err) => {
         return Response.error(res, err);

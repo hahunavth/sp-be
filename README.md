@@ -25,3 +25,9 @@ npm install
 
 ## Test:
 - Go to: http://localhost:8080/docs
+
+## DB migration
+```bash
+npm install --save-dev sequelize-cli
+
+```

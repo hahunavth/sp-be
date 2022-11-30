@@ -23,6 +23,10 @@ module.exports = (sequelize, DataTypes) => {
       email: DataTypes.STRING,
       address: DataTypes.STRING,
       star: DataTypes.INTEGER,
+      price: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
       created_by: DataTypes.STRING,
       updated_by: DataTypes.STRING,
     },
