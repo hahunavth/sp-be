@@ -1,5 +1,5 @@
-const db = require("../models/index");
-const Response = require("../utils/responses");
+const db = require('../models/index');
+const Response = require('../utils/responses');
 
 class ExportController {
   async exportProduct(req, res) {

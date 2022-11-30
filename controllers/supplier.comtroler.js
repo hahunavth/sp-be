@@ -101,7 +101,7 @@ class supplierController {
       // return res.json({
       //   Error: "Something went wrong! Check this message: " + error,
       // });
-      return Response.error(res, err);
+      return Response.error(res, error);
     }
   }
 }
