@@ -1,8 +1,7 @@
-const db = require('../models/index');
-const supplier = db['supplier'];
-// const newSupplier = require("../config/config.json");
-const Response = require('../utils/responses');
-const QueryParser = require('../utils/query');
+const db = require("../models/index");
+const supplier = db["supplier"];
+const Response = require("../utils/responses");
+const QueryParser = require("../utils/query");
 
 class supplierController {
   /**
@@ -51,7 +50,6 @@ class supplierController {
 
   async createHistory(req, res) {
     try {
-      // const list = newHistoryList.importHistory;
       const data = req.body;
       // TODO: VALIDATE DATA
       const newRecord = await supplier.create(data);
@@ -65,14 +63,9 @@ class supplierController {
     await supplier
       .findByPk(req.params.id)
       .then((result) => {
-        // return res.status(200).json({
-        //   data: { result },
-        //   message: "Sucessfully",
-        // });
-        return Response.success(result);
+        return Response.success(res, result);
       })
       .catch((err) => {
-        // console.log(err);
         return Response.error(res, err);
       });
   }
@@ -98,9 +91,6 @@ class supplierController {
 
       return Response.success(res);
     } catch (error) {
-      // return res.json({
-      //   Error: "Something went wrong! Check this message: " + error,
-      // });
       return Response.error(res, error);
     }
   }

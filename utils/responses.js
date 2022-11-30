@@ -7,9 +7,12 @@ class Response {
   }
 
   static error(res, err) {
+    // NOTE: SHOW ERROR IN CONSOLE!
+    console.error(err);
+
     return res.status(500).json({
       status: 400,
-      errors: [err || "Server error"],
+      errors: [err.message || "Server error"],
     });
   }
 

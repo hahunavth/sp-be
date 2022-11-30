@@ -1,8 +1,8 @@
-const db = require('../models/index');
-const importHistory = db['import_history'];
+const db = require("../models/index");
+const importHistory = db["import_history"];
 // const newHistoryList = require("../config/config.json");
-const Response = require('../utils/responses');
-const QueryParser = require('../utils/query');
+const Response = require("../utils/responses");
+const QueryParser = require("../utils/query");
 
 class importHistoryController {
   async getAllProduct(req, res) {
@@ -12,7 +12,7 @@ class importHistoryController {
       // TODO: filter by attr
       await importHistory.findAll().then(async (result) => {
         const filters = req.query;
-        console.log('day la :', filters);
+        console.log("day la :", filters);
         try {
           const data = await importHistory.findAndCountAll({
             where: {},
