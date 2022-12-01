@@ -1,5 +1,6 @@
 const db = require("../models/index");
 const Response = require("../utils/responses");
+const axios = require("axios");
 
 class ExportController {
   async exportProduct(req, res) {
@@ -10,23 +11,21 @@ class ExportController {
       Response.input(res);
     }
 
-    // const dateShip = new Date();
-    //Kiểm tra tính khả dụng của đơn hàng
-    // if(req.)
-    // goi api kho
-    // const response = await fetch(
-    //   "http://localhost/getInfoProduct/id/" +
-    //     req.body.productId +
-    //     "/size/" +
-    //     req.body.size +
-    //     "/color/" +
-    //     req.body.color
-    // );
-    // const resJson = await response.json();
+    if (!req.body?.order_id) {
+      return Response.error(res, "Missing order id");
+    }
 
-    // if (dataProduct.quantity < resJson.Amount) {
-    //   res.send("Khong du so luong");
-    // }
+    const { data, status } = await axios.get(process.env.M01_PROD);
+    if (status != 200) {
+      return Response.error(res, "Cannot export products from warehouse");
+    }
+
+    const { ddata, dstatus } = await axios.post(process.env.O02_DELI_REQ, {
+      body: { order_id: req.body?.order_id },
+    });
+    if (status != 200) {
+      return Response.error(res, "Delivery error");
+    }
 
     return Response.success(res, {
       products,
