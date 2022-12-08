@@ -11,12 +11,12 @@ const pg = require("pg");
 const db = {};
 
 let sequelize = new Sequelize(
-  process.env.MYSQL_DATABASE,
-  process.env.MYSQL_USER,
-  process.env.MYSQL_PASSWORD,
+  process.env.DATABASE,
+  process.env.USER,
+  process.env.PASSWORD,
   {
-    host: process.env.MYSQL_HOST || "localhost",
-    port: process.env.MYSQL_PORT,
+    host: process.env.HOST || "localhost",
+    port: process.env.PORT,
     dialect: process.env.DIALECT || "mysql",
     dialectModule: process.env.DIALECT == "postgres" ? pg : undefined,
   }
@@ -52,7 +52,7 @@ db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
 db.sequelize
-  .sync({ force: true })
+  .sync({ force: process.env.NODE_ENV == "development" })
   .then((result) => {
     console.log("DB Connect successfully");
   })

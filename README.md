@@ -33,3 +33,7 @@ npm install --save-dev sequelize-cli
 npx sequelize-cli db:create
 npx sequelize-cli db:migrate
 ```
+
+npx sequelize-cli db:migrate 
+npx sequelize-cli seed:generate 
+npx sequelize-cli init   
