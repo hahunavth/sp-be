@@ -16,7 +16,7 @@ let sequelize = new Sequelize(
   process.env.PASSWORD,
   {
     host: process.env.HOST || "localhost",
-    port: process.env.PORT,
+    port: process.env.DB_PORT,
     dialect: process.env.DIALECT || "mysql",
     dialectModule: process.env.DIALECT == "postgres" ? pg : undefined,
   }
