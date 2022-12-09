@@ -3,6 +3,7 @@ import AuthRoute from '@routes/auth.route';
 import IndexRoute from '@routes/index.route';
 import UsersRoute from '@routes/users.route';
 import validateEnv from '@utils/validateEnv';
+import SupplierRoute from './routes/supplier.route';
 
 process.on('uncaughtException', function (exception) {
   console.log(exception);
@@ -14,6 +15,6 @@ process.on('uncaughtException', function (exception) {
 validateEnv();
 
 // NOTE: Thêm route líst vào đây.
-const app = new App([new IndexRoute(), new UsersRoute(), new AuthRoute()]);
+const app = new App([new IndexRoute(), new UsersRoute(), new AuthRoute(), new SupplierRoute()]);
 
 app.listen();
