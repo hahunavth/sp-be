@@ -5,7 +5,7 @@ import BaseController from './base.controller';
 abstract class CRUDController<I, C extends Object, U extends Object, S extends CRUDService<I, C, U>> extends BaseController {
   public service: S;
 
-  public constructor(service?: any) {
+  public constructor(service: any) {
     super();
     this.service = service;
     if (!(service instanceof CRUDService)) {
