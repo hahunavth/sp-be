@@ -7,6 +7,7 @@ export interface ImportProduct {
   quantity: number;
   total_cost: number;
   status: string;
+  note: string;
   created_by: string;
   updated_by: string;
 }

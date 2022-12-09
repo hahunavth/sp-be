@@ -12,6 +12,10 @@ export class CreateSupplierDto implements SupplierCreationAttributes {
   public address: string;
   @IsString()
   @IsOptional()
+  public note: string;
+
+  @IsString()
+  @IsOptional()
   public created_by: string;
   @IsString()
   @IsOptional()

@@ -36,12 +36,13 @@ const sequelize = DB.sequelize;
 (async () => {
   // NOTE: TEST QUERY HERE
 
-  // const res = await ImportProducts.findAll({ include: [{ model: Suppliers }] });
-  // console.log(res);
+  const res = await Suppliers.findAndCountAll({ limit: 100, offset: 0 });
+  console.log(res.count);
+  console.log(res.rows);
   // res = await res.filter(v => v.id == 1);
   // console.log(res);
 
   // Link: https://sequelize.org/docs/v6/core-concepts/raw-queries/
-  const supls = await sequelize.query('SELECT * FROM supplier', { type: QueryTypes.SELECT });
-  console.log(supls);
+  // const supls = await sequelize.query('SELECT * FROM supplier', { type: QueryTypes.SELECT });
+  // console.log(supls);
 })();

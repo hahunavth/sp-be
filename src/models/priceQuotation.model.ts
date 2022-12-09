@@ -1,7 +1,7 @@
 import { Sequelize, DataTypes, Model, Optional } from 'sequelize';
 import { PriceQuotation } from '@interfaces/priceQuotation.interface';
 
-export type PriceQuotationCreationAttributes = Optional<PriceQuotation, 'id' | 'created_by' | 'updated_by'>;
+export type PriceQuotationCreationAttributes = Optional<PriceQuotation, 'id' | 'created_by' | 'updated_by' | 'note'>;
 
 export class PriceQuotationModel extends Model<PriceQuotation, PriceQuotationCreationAttributes> implements PriceQuotation {
   public id: number;
@@ -9,6 +9,8 @@ export class PriceQuotationModel extends Model<PriceQuotation, PriceQuotationCre
   public product_id: number;
   public subproduct_id: number;
   public unit_price: number;
+  public note: string;
+
   public created_by: string;
   public updated_by: string;
 
@@ -50,6 +52,10 @@ export default function (sequelize: Sequelize): typeof PriceQuotationModel {
           notNull: { msg: 'unit_price is required' },
         },
       }, // Tong so tien
+      note: {
+        type: DataTypes.STRING,
+        defaultValue: '',
+      },
       // ?
       created_by: DataTypes.STRING,
       updated_by: DataTypes.STRING,

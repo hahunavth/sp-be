@@ -4,6 +4,7 @@ export interface Supplier {
   phone: string;
   email: string;
   address: string;
+  note: string;
   created_by: string;
   updated_by: string;
   // createdAt: Date;

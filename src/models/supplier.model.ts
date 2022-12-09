@@ -1,7 +1,7 @@
 import { Sequelize, DataTypes, Model, Optional } from 'sequelize';
 import { Supplier } from '@interfaces/supplier.interface';
 
-export type SupplierCreationAttributes = Optional<Supplier, 'id' | 'created_by' | 'updated_by'>;
+export type SupplierCreationAttributes = Optional<Supplier, 'id' | 'created_by' | 'updated_by' | 'note'>;
 
 export class SupplierModel extends Model<Supplier, SupplierCreationAttributes> implements Supplier {
   public id: number;
@@ -9,6 +9,7 @@ export class SupplierModel extends Model<Supplier, SupplierCreationAttributes> i
   public phone: string;
   public email: string;
   public address: string;
+  public note: string;
   public created_by: string;
   public updated_by: string;
 
@@ -41,6 +42,10 @@ export default function (sequelize: Sequelize): typeof SupplierModel {
         validate: { isEmail: true },
       },
       address: DataTypes.STRING,
+      note: {
+        type: DataTypes.STRING,
+        defaultValue: '',
+      },
       created_by: DataTypes.STRING,
       updated_by: DataTypes.STRING,
       // createdAt: '',

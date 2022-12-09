@@ -4,6 +4,7 @@ export interface PriceQuotation {
   product_id: number;
   subproduct_id: number;
   unit_price: number;
+  note: string;
   created_by: string;
   updated_by: string;
 }

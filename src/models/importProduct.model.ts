@@ -1,7 +1,7 @@
 import { Sequelize, DataTypes, Model, Optional } from 'sequelize';
 import { ImportProduct } from '@interfaces/importProduct.interface';
 
-export type ImportProductCreationAttributes = Optional<ImportProduct, 'id' | 'created_by' | 'updated_by'>;
+export type ImportProductCreationAttributes = Optional<ImportProduct, 'id' | 'created_by' | 'updated_by' | 'note'>;
 
 export class ImportProductModel extends Model<ImportProduct, ImportProductCreationAttributes> implements ImportProduct {
   public id: number;
@@ -12,6 +12,7 @@ export class ImportProductModel extends Model<ImportProduct, ImportProductCreati
   public quantity: number;
   public total_cost: number;
   public status: string;
+  public note: string;
   public created_by: string;
   public updated_by: string;
 
@@ -69,6 +70,10 @@ export default function (sequelize: Sequelize): typeof ImportProductModel {
             notNull: { msg: 'status is required' },
           },
         },
+      },
+      note: {
+        type: DataTypes.STRING,
+        defaultValue: '',
       },
       created_by: DataTypes.STRING,
       updated_by: DataTypes.STRING,

@@ -12,6 +12,10 @@ class CreatePriceQuotationDto implements PriceQuotationCreationAttributes {
   public unit_price: number;
   @IsString()
   @IsOptional()
+  public note: string;
+
+  @IsString()
+  @IsOptional()
   public created_by: string;
   @IsString()
   @IsOptional()
