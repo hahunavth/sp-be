@@ -13,9 +13,14 @@ type Paginate = {
   count: number | undefined;
 };
 
+type KV = {
+  [k: string]: any;
+};
+
 type TimeFilter = {
   startAt?: string;
   endAt?: string;
+  filter?: KV;
 };
 
 type ApiPaginateSuccess<T> = ApiSuccess<T> & Paginate & TimeFilter;
@@ -28,7 +33,7 @@ class BaseController {
         data,
       });
     },
-    paginate: <T>(res: Response, { data, message, count, limit, page, endAt, startAt }: ApiPaginateSuccess<T>) => {
+    paginate: <T>(res: Response, { data, message, count, limit, page, endAt, startAt, filter }: ApiPaginateSuccess<T>) => {
       return res.status(200).json({
         message: message || 'Successfully',
         page,
@@ -36,6 +41,7 @@ class BaseController {
         count,
         startAt,
         endAt,
+        filter,
         data,
       });
     },
@@ -75,6 +81,24 @@ class BaseController {
       }
 
       return result;
+    },
+
+    parse_filter: (req: Request, model) => {
+      const where_filter = {};
+      const filter = {};
+      Object.keys(req.query)
+        .filter(key => key != 'startAt' && key != 'endAt')
+        .forEach(key => {
+          if (Object.keys(model.getAttributes()).includes(key)) {
+            if (model.getAttributes()[key].type.key == 'STRING') where_filter[key] = { [Op.like]: '%' + req.query[key] + '%' };
+            if (model.getAttributes()[key].type.key == 'INTEGER') where_filter[key] = req.query[key];
+            if (model.getAttributes()[key].type.key == 'DATE') where_filter[key] = req.query[key];
+            filter[key] = req.query[key];
+          }
+        });
+      console.log(filter);
+
+      return { where_filter, filter };
     },
   };
 }

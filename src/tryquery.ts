@@ -50,8 +50,6 @@ const sequelize = DB.sequelize;
     limit: 100,
     offset: 0,
     where,
-    // where: {
-    // },
   });
   console.log(res.count);
   // console.log(res.rows);
@@ -63,10 +61,17 @@ const sequelize = DB.sequelize;
 
   console.log(res2.count);
   // console.log(res2.rows);
+
   // res = await res.filter(v => v.id == 1);
   // console.log(res);
 
   // Link: https://sequelize.org/docs/v6/core-concepts/raw-queries/
   // const supls = await sequelize.query('SELECT * FROM import_product', { type: QueryTypes.SELECT });
   // console.log(supls);
+
+  // Users.colu
+  for (const key in Users.getAttributes()) {
+    console.log('Field: ', key); // this is name of the field
+    console.log('TypeField: ', Users.getAttributes()[key].type.key); // Sequelize type of field
+  }
 })();
