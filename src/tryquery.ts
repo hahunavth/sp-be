@@ -13,6 +13,7 @@ import errorMiddleware from '@middlewares/error.middleware';
 import { logger, stream } from '@utils/logger';
 import DB from '@databases';
 import { QueryTypes } from 'sequelize';
+import { Op } from 'sequelize';
 
 process.on('uncaughtException', function (exception) {
   console.log(exception);
@@ -36,13 +37,36 @@ const sequelize = DB.sequelize;
 (async () => {
   // NOTE: TEST QUERY HERE
 
-  const res = await Suppliers.findAndCountAll({ limit: 100, offset: 0 });
+  const startDate = '2020-12-12 00:00:00';
+  const endDate = '2022-12-09T17:22:01.644Z';
+
+  const where = {
+    created_at: {
+      [Op.between]: [startDate, endDate],
+    },
+  };
+
+  const res = await Suppliers.findAndCountAll({
+    limit: 100,
+    offset: 0,
+    where,
+    // where: {
+    // },
+  });
   console.log(res.count);
-  console.log(res.rows);
+  // console.log(res.rows);
+
+  const res2 = await Suppliers.findAndCountAll({
+    limit: 100,
+    offset: 0,
+  });
+
+  console.log(res2.count);
+  // console.log(res2.rows);
   // res = await res.filter(v => v.id == 1);
   // console.log(res);
 
   // Link: https://sequelize.org/docs/v6/core-concepts/raw-queries/
-  // const supls = await sequelize.query('SELECT * FROM supplier', { type: QueryTypes.SELECT });
+  // const supls = await sequelize.query('SELECT * FROM import_product', { type: QueryTypes.SELECT });
   // console.log(supls);
 })();

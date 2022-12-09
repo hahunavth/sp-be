@@ -21,6 +21,13 @@ class CRUDService<I, C extends Object, U extends Object> {
     }
   }
 
+  public async findAndCountAll(query): Promise<{
+    count: number;
+    rows: I[];
+  }> {
+    return this.table.findAndCountAll(query);
+  }
+
   public async findAll(): Promise<I[]> {
     const allRecord: I[] = await this.table.findAll();
     return allRecord;

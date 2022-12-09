@@ -1,9 +1,10 @@
 import { NextFunction, Request, Response } from 'express';
 import CRUDService from '@/services/base/crud.service';
 import BaseController from './base.controller';
+import { Op } from 'sequelize';
 
 abstract class CRUDController<I, C extends Object, U extends Object, S extends CRUDService<I, C, U>> extends BaseController {
-  public service: S;
+  public service: any;
 
   public constructor(service: any) {
     super();
@@ -15,14 +16,26 @@ abstract class CRUDController<I, C extends Object, U extends Object, S extends C
 
   public getAll = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const findAllsData: I[] = await this.service.findAll();
+      const { limit, offset, page } = this._req.parse_paginate(req);
+      const { startAt, endAt, where } = this._req.parse_time(req);
+
+      const findAllsData: {
+        count: number;
+        rows: I[];
+      } = await this.service.findAndCountAll({
+        limit,
+        offset,
+        where: where,
+      });
 
       this._res.paginate(res, {
         message: 'findAll',
-        count: undefined,
-        data: findAllsData,
-        limit: undefined,
-        page: undefined,
+        limit,
+        page,
+        startAt,
+        endAt,
+        count: findAllsData?.count,
+        data: findAllsData?.rows,
       });
     } catch (error) {
       next(error);
