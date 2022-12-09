@@ -1,5 +1,6 @@
 import { HttpException } from '@exceptions/HttpException';
 import { isEmpty } from '@utils/util';
+import { Model } from 'sequelize';
 
 /**
  * Override: handle find record, check email, ...
@@ -7,7 +8,7 @@ import { isEmpty } from '@utils/util';
  * in route create, update
  */
 class CRUDService<I, C extends Object, U extends Object> {
-  // extend Model
+  // typeof Model
   public table: any;
   public tableName: string;
 
