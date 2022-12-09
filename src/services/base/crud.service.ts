@@ -1,9 +1,5 @@
-import { hash } from 'bcrypt';
-import DB from '@databases';
 import { HttpException } from '@exceptions/HttpException';
-import { User } from '@interfaces/users.interface';
 import { isEmpty } from '@utils/util';
-import { Model } from 'sequelize';
 
 /**
  * Override: handle find record, check email, ...
@@ -42,7 +38,6 @@ class CRUDService<I, C extends Object, U extends Object> {
     if (isEmpty(data)) throw new HttpException(400, this.tableName + ' data is empty');
 
     if (callback) data = await callback(data);
-    console.log(data);
 
     const createData: I = await this.table.create({ ...data });
     return createData;

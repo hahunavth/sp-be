@@ -1,9 +1,9 @@
 import bcrypt from 'bcrypt';
 import { Sequelize } from 'sequelize';
 import request from 'supertest';
-import App from '@/app';
-import { CreateUserDto } from '@dtos/users.dto';
-import UserRoute from '@routes/users.route';
+import App from '../app';
+import { CreateUserDto } from '../dtos/users.dto';
+import UserRoute from '../routes/users.route';
 
 afterAll(async () => {
   await new Promise<void>(resolve => setTimeout(() => resolve(), 500));
@@ -13,7 +13,7 @@ describe('Testing Users', () => {
   describe('[GET] /users', () => {
     it('response findAll users', async () => {
       const usersRoute = new UserRoute();
-      const users = usersRoute.usersController.userService.users;
+      const users = usersRoute.usersController.service.users;
 
       users.findAll = jest.fn().mockReturnValue([
         {
@@ -44,7 +44,7 @@ describe('Testing Users', () => {
       const userId = 1;
 
       const usersRoute = new UserRoute();
-      const users = usersRoute.usersController.userService.users;
+      const users = usersRoute.usersController.service.users;
 
       users.findByPk = jest.fn().mockReturnValue({
         id: 1,
@@ -66,7 +66,7 @@ describe('Testing Users', () => {
       };
 
       const usersRoute = new UserRoute();
-      const users = usersRoute.usersController.userService.users;
+      const users = usersRoute.usersController.service.users;
 
       users.findOne = jest.fn().mockReturnValue(null);
       users.create = jest.fn().mockReturnValue({
@@ -90,7 +90,7 @@ describe('Testing Users', () => {
       };
 
       const usersRoute = new UserRoute();
-      const users = usersRoute.usersController.userService.users;
+      const users = usersRoute.usersController.service.users;
 
       users.findByPk = jest.fn().mockReturnValue({
         id: userId,
@@ -115,7 +115,7 @@ describe('Testing Users', () => {
       const userId = 1;
 
       const usersRoute = new UserRoute();
-      const users = usersRoute.usersController.userService.users;
+      const users = usersRoute.usersController.service.users;
 
       users.findByPk = jest.fn().mockReturnValue({
         id: userId,

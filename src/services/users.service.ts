@@ -3,9 +3,7 @@ import DB from '@databases';
 import { CreateUserDto } from '@dtos/users.dto';
 import { HttpException } from '@exceptions/HttpException';
 import { User } from '@interfaces/users.interface';
-import { isEmpty } from '@utils/util';
-import CRUDService from './crud.service';
-import { UserModel } from '@/models/users.model';
+import CRUDService from './base/crud.service';
 
 class UserService extends CRUDService<User, CreateUserDto, CreateUserDto> {
   public users = DB.Users;

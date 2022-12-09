@@ -19,15 +19,18 @@ class App {
   public port: string | number;
 
   constructor(routes: Routes[]) {
-    this.app = express();
-    this.env = NODE_ENV || 'development';
-    this.port = PORT || 3000;
-
-    this.connectToDatabase();
-    this.initializeMiddlewares();
-    this.initializeRoutes(routes);
-    this.initializeSwagger();
-    this.initializeErrorHandling();
+    try {
+      this.app = express();
+      this.env = NODE_ENV || 'development';
+      this.port = PORT || 3000;
+      this.connectToDatabase();
+      this.initializeMiddlewares();
+      this.initializeRoutes(routes);
+      this.initializeSwagger();
+      this.initializeErrorHandling();
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   public listen() {
@@ -44,7 +47,14 @@ class App {
   }
 
   private connectToDatabase() {
-    DB.sequelize.sync({ force: false });
+    DB.sequelize
+      .sync({ force: false })
+      .then(result => {
+        console.log('DB Connect successfully');
+      })
+      .catch(err => {
+        console.error(err);
+      });
   }
 
   private initializeMiddlewares() {
