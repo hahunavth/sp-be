@@ -57,10 +57,11 @@ const sequelize = DB.sequelize;
   const res2 = await Suppliers.findAndCountAll({
     limit: 100,
     offset: 0,
+    order: [['created_at', 'DESC']],
   });
 
   console.log(res2.count);
-  // console.log(res2.rows);
+  console.log(res2.rows);
 
   // res = await res.filter(v => v.id == 1);
   // console.log(res);

@@ -19,6 +19,7 @@ abstract class CRUDController<I, C extends Object, U extends Object, S extends C
       const { limit, offset, page } = this._req.parse_paginate(req);
       const { startAt, endAt, where } = this._req.parse_time(req);
       const { filter, where_filter } = this._req.parse_filter(req, this.service.table);
+      const order = [['created_at', 'DESC']];
 
       const findAllsData: {
         count: number;
@@ -27,6 +28,7 @@ abstract class CRUDController<I, C extends Object, U extends Object, S extends C
         limit,
         offset,
         where: { ...where, ...where_filter },
+        order,
       });
 
       this._res.paginate(res, {
