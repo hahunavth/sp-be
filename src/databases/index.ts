@@ -24,7 +24,7 @@ const sequelize = new Sequelize.Sequelize(DB_DATABASE, DB_USER, DB_PASSWORD, {
   },
   logQueryParameters: NODE_ENV === 'development',
   logging: (query, time) => {
-    logger.info(time + 'ms' + ' ' + query);
+    logger.debug(time + 'ms' + ' ' + query);
   },
   benchmark: true,
 });

@@ -1,0 +1,14 @@
+# fly.toml file generated for sp-17-production on 2022-12-09T01:17:41+07:00
+
+app = "sp-17-production"
+
+[env]
+  PORT = 3000
+
+[[services]]
+  internal_port = 3000
+  protocol = "tcp"
+
+  [[services.ports]]
+  handlers = ["tls", "http"]
+  port = 443

@@ -12,13 +12,41 @@ if (!existsSync(logDir)) {
 }
 
 // Define log format
-const logFormat = winston.format.printf(({ timestamp, level, message }) => `${timestamp} ${level}: ${message}`);
+const colorizer = winston.format.colorize();
+const myCustomLevels = {
+  levels: {
+    error: 0,
+    warn: 1,
+    data: 2,
+    info: 3,
+    debug: 4,
+    verbose: 5,
+    silly: 6,
+    custom: 7,
+  },
+  colors: {
+    error: 'red',
+    warn: 'orange',
+    data: 'grey',
+    info: 'green',
+    debug: 'yellow',
+    verbose: 'cyan',
+    silly: 'magenta',
+    custom: 'blue',
+  },
+};
+colorizer.addColors(myCustomLevels.colors);
+const colorLv = msg => {
+  return colorizer.colorize(msg.level, `[${msg.timestamp}]  ${msg.level} `);
+};
+const logFormat = winston.format.printf(({ timestamp, level, message }) => `${colorLv({ level, message, timestamp })}` + `: ${message}`);
 
 /*
  * Log Level
  * error: 0, warn: 1, info: 2, http: 3, verbose: 4, debug: 5, silly: 6
  */
 const logger = winston.createLogger({
+  level: 'debug',
   format: winston.format.combine(
     winston.format.timestamp({
       format: 'YYYY-MM-DD HH:mm:ss',

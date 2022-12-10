@@ -8,7 +8,8 @@ import PriceQuotationRoute from './routes/priceQuotation.controller';
 import SupplierRoute from './routes/supplier.route';
 
 process.on('uncaughtException', function (exception) {
-  console.log(exception);
+  // console.log(exception);
+  throw exception;
   // to see your exception details in the console
   // if you are on production, maybe you can send the exception details to your
   // email as well ?

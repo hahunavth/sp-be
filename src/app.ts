@@ -19,24 +19,20 @@ class App {
   public port: string | number;
 
   constructor(routes: Routes[]) {
-    try {
-      this.app = express();
-      this.env = NODE_ENV || 'development';
-      this.port = PORT || 3000;
-      this.connectToDatabase();
-      this.initializeMiddlewares();
-      this.initializeRoutes(routes);
-      this.initializeSwagger();
-      this.initializeErrorHandling();
-    } catch (error) {
-      console.error(error);
-    }
+    this.app = express();
+    this.env = NODE_ENV || 'development';
+    this.port = PORT || 3000;
+    this.connectToDatabase();
+    this.initializeMiddlewares();
+    this.initializeRoutes(routes);
+    this.initializeSwagger();
+    this.initializeErrorHandling();
   }
 
   public listen() {
     this.app.listen(this.port, () => {
       logger.info(`=================================`);
-      logger.info(`======= ENV: ${this.env} =======`);
+      logger.info(`======= ENV: ${this.env} ========`);
       logger.info(`🚀 App listening on the port ${this.port}`);
       logger.info(`=================================`);
     });
@@ -47,14 +43,11 @@ class App {
   }
 
   private connectToDatabase() {
-    DB.sequelize
-      .sync({ force: false })
-      .then(result => {
-        console.log('DB Connect successfully');
-      })
-      .catch(err => {
-        console.error(err);
-      });
+    DB.sequelize.sync({ force: false }).then(result => {
+      logger.info(`=================================`);
+      logger.info('🚀 DB Connect successfully');
+      logger.info(`=================================`);
+    });
   }
 
   private initializeMiddlewares() {
