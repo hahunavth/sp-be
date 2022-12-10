@@ -4,7 +4,7 @@ import CRUDRoute from './base/crud.routes';
 
 class PriceQuotationRoute extends CRUDRoute {
   constructor() {
-    super('/import', new PriceQuotationController(), CreatePriceQuotationDto, CreatePriceQuotationDto);
+    super('/api/v1/price-quotation', new PriceQuotationController(), CreatePriceQuotationDto, CreatePriceQuotationDto);
   }
 }
 

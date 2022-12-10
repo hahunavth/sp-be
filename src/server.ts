@@ -4,7 +4,7 @@ import IndexRoute from '@routes/index.route';
 import UsersRoute from '@routes/users.route';
 import validateEnv from '@utils/validateEnv';
 import ImportProductRoute from './routes/importProduct.route';
-import PriceQuotationRoute from './routes/priceQuotation.controller';
+import PriceQuotationRoute from './routes/priceQuotation.route';
 import SupplierRoute from './routes/supplier.route';
 
 process.on('uncaughtException', function (exception) {

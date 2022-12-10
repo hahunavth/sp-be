@@ -4,7 +4,7 @@ import CRUDRoute from './base/crud.routes';
 
 class ImportProductRoute extends CRUDRoute {
   constructor() {
-    super('/import', new ImportProductController(), CreateImportProductDto, CreateImportProductDto);
+    super('/api/v1/import', new ImportProductController(), CreateImportProductDto, CreateImportProductDto);
   }
 }
 

@@ -4,7 +4,7 @@ import CRUDRoute from './base/crud.routes';
 
 class SupplierRoute extends CRUDRoute {
   constructor() {
-    super('/supplier', new SupplierController(), CreateSupplierDto, CreateSupplierDto);
+    super('/api/v1/supplier', new SupplierController(), CreateSupplierDto, CreateSupplierDto);
   }
 }
 
