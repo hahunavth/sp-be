@@ -1,3 +1,4 @@
+import { logger } from '@/utils/logger';
 import { Request, Response } from 'express';
 import moment from 'moment';
 import { Op } from 'sequelize';
@@ -96,7 +97,7 @@ class BaseController {
             filter[key] = req.query[key];
           }
         });
-      console.log(filter);
+      logger.data(filter);
 
       return { where_filter, filter };
     },

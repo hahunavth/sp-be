@@ -16,16 +16,16 @@ import { QueryTypes } from 'sequelize';
 import { Op } from 'sequelize';
 
 process.on('uncaughtException', function (exception) {
-  console.log(exception);
+  logger.verbose(exception);
 });
 
 DB.sequelize
   .sync({ force: false, logging: false })
   .then(result => {
-    console.log('DB Connect successfully');
+    logger.info('DB Connect successfully');
   })
   .catch(err => {
-    console.error(err);
+    logger.error(err);
   });
 
 const Users = DB.Users;
@@ -51,8 +51,8 @@ const sequelize = DB.sequelize;
     offset: 0,
     where,
   });
-  console.log(res.count);
-  // console.log(res.rows);
+  logger.verbose(res.count);
+  // logger.verbose(res.rows);
 
   const res2 = await Suppliers.findAndCountAll({
     limit: 100,
@@ -60,19 +60,17 @@ const sequelize = DB.sequelize;
     order: [['created_at', 'DESC']],
   });
 
-  console.log(res2.count);
-  console.log(res2.rows);
+  logger.verbose(res2.count);
+  logger.verbose(res2.rows);
 
   // res = await res.filter(v => v.id == 1);
-  // console.log(res);
 
   // Link: https://sequelize.org/docs/v6/core-concepts/raw-queries/
   // const supls = await sequelize.query('SELECT * FROM import_product', { type: QueryTypes.SELECT });
-  // console.log(supls);
 
   // Users.colu
   for (const key in Users.getAttributes()) {
-    console.log('Field: ', key); // this is name of the field
-    console.log('TypeField: ', Users.getAttributes()[key].type.key); // Sequelize type of field
+    logger.verbose('Field: ', key); // this is name of the field
+    logger.verbose('TypeField: ', Users.getAttributes()[key].type.key); // Sequelize type of field
   }
 })();

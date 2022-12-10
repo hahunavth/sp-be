@@ -39,7 +39,10 @@ colorizer.addColors(myCustomLevels.colors);
 const colorLv = msg => {
   return colorizer.colorize(msg.level, `[${msg.timestamp}]  ${msg.level} `);
 };
-const logFormat = winston.format.printf(({ timestamp, level, message }) => `${colorLv({ level, message, timestamp })}` + `: ${message}`);
+const logFormat = winston.format.printf(
+  ({ timestamp, level, message }) =>
+    `${colorLv({ level, message, timestamp })}` + `: ` + (level === 'debug' ? colorizer.colorize('data', `${message}`) : `${message}`),
+);
 
 /*
  * Log Level
