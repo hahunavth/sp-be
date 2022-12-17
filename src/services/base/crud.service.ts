@@ -66,10 +66,10 @@ class CRUDService<I, C extends Object, U extends Object> {
   }
 
   public async delete(id: number): Promise<I> {
-    if (isEmpty(id)) throw new HttpException(400, "User doesn't existId");
+    if (isEmpty(id)) throw new HttpException(400, 'Id: ' + id);
 
     const findRecord: I = await this.table.findByPk(id);
-    if (!findRecord) throw new HttpException(409, "User doesn't exist");
+    if (!findRecord) throw new HttpException(409, "Id doesn't exist");
 
     await this.table.destroy({ where: { id: id } });
 

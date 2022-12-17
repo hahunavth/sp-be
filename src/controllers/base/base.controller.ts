@@ -97,7 +97,7 @@ class BaseController {
             filter[key] = req.query[key];
           }
         });
-      logger.data(filter);
+      // logger.data(filter);
 
       return { where_filter, filter };
     },

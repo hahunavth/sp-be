@@ -4,7 +4,10 @@ import CRUDRoute from './base/crud.routes';
 
 class SupplierRoute extends CRUDRoute {
   constructor() {
-    super('/api/v1/supplier', new SupplierController(), CreateSupplierDto, CreateSupplierDto);
+    const controller = new SupplierController();
+    super('/api/v1/supplier', controller, CreateSupplierDto, CreateSupplierDto);
+    // by HieuTT
+    this.router.get('/api/v1/supplier/getStatistical', controller.getStatistical);
   }
 }
 

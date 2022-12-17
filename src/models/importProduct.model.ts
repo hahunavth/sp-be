@@ -64,11 +64,9 @@ export default function (sequelize: Sequelize): typeof ImportProductModel {
       }, // Tong so tien
       status: {
         type: DataTypes.STRING,
+        allowNull: false,
         validate: {
-          allowNull: false,
-          validate: {
-            notNull: { msg: 'status is required' },
-          },
+          notNull: { msg: 'status is required' },
         },
       },
       note: {

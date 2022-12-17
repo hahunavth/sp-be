@@ -4,7 +4,12 @@ import CRUDRoute from './base/crud.routes';
 
 class ImportProductRoute extends CRUDRoute {
   constructor() {
-    super('/api/v1/import', new ImportProductController(), CreateImportProductDto, CreateImportProductDto);
+    const controller = new ImportProductController();
+    super('/api/v1/import', controller, CreateImportProductDto, CreateImportProductDto);
+
+    // statistical endpoint by HieuTT
+    this.router.get('/api/v1/getHistory/statistical', controller.getHistoryStatistical);
+    this.router.get('/api/v1/getHistory', controller.getHistory);
   }
 }
 

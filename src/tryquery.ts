@@ -36,41 +36,50 @@ const sequelize = DB.sequelize;
 
 (async () => {
   // NOTE: TEST QUERY HERE
+  // const startDate = '2020-12-12 00:00:00';
+  // const endDate = '2022-12-09T17:22:01.644Z';
+  // const where = {
+  //   created_at: {
+  //     [Op.between]: [startDate, endDate],
+  //   },
+  // };
+  // const res = await Suppliers.findAndCountAll({
+  //   limit: 100,
+  //   offset: 0,
+  //   where,
+  // });
+  // logger.verbose(res.count);
+  // // logger.verbose(res.rows);
+  // const res2 = await Suppliers.findAndCountAll({
+  //   limit: 100,
+  //   offset: 0,
+  //   order: [['created_at', 'DESC']],
+  // });
+  // logger.verbose(res2.count);
+  // logger.verbose(res2.rows);
+  // // res = await res.filter(v => v.id == 1);
+  // // Link: https://sequelize.org/docs/v6/core-concepts/raw-queries/
+  // // const supls = await sequelize.query('SELECT * FROM import_product', { type: QueryTypes.SELECT });
+  // // Users.colu
+  // for (const key in Users.getAttributes()) {
+  //   logger.verbose('Field: ', key); // this is name of the field
+  //   logger.verbose('TypeField: ', Users.getAttributes()[key].type.key); // Sequelize type of field
+  // }
 
-  const startDate = '2020-12-12 00:00:00';
-  const endDate = '2022-12-09T17:22:01.644Z';
+  const year = 2022;
 
-  const where = {
-    created_at: {
-      [Op.between]: [startDate, endDate],
+  const sql = `select date_part('month',"created_at"::timestamp) thang, sum(quantity) count
+          from import_product
+          where date_part('year',"created_at"::timestamp) = ${year}
+          group by date_part('month',"created_at"::timestamp)
+          ;`;
+
+  const data = await DB.sequelize.query(sql, { type: QueryTypes.SELECT, logging: console.log });
+  console.log({
+    data: {
+      year,
+      data,
     },
-  };
-
-  const res = await Suppliers.findAndCountAll({
-    limit: 100,
-    offset: 0,
-    where,
   });
-  logger.verbose(res.count);
-  // logger.verbose(res.rows);
-
-  const res2 = await Suppliers.findAndCountAll({
-    limit: 100,
-    offset: 0,
-    order: [['created_at', 'DESC']],
-  });
-
-  logger.verbose(res2.count);
-  logger.verbose(res2.rows);
-
-  // res = await res.filter(v => v.id == 1);
-
-  // Link: https://sequelize.org/docs/v6/core-concepts/raw-queries/
-  // const supls = await sequelize.query('SELECT * FROM import_product', { type: QueryTypes.SELECT });
-
-  // Users.colu
-  for (const key in Users.getAttributes()) {
-    logger.verbose('Field: ', key); // this is name of the field
-    logger.verbose('TypeField: ', Users.getAttributes()[key].type.key); // Sequelize type of field
-  }
+  console.log(data);
 })();
