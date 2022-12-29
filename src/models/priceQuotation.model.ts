@@ -5,6 +5,7 @@ export type PriceQuotationCreationAttributes = Optional<PriceQuotation, 'id' | '
 
 export class PriceQuotationModel extends Model<PriceQuotation, PriceQuotationCreationAttributes> implements PriceQuotation {
   public id: number;
+  public import_id: number;
   public supplier_id: number;
   public product_id: number;
   public subproduct_id: number;
@@ -22,7 +23,14 @@ export default function (sequelize: Sequelize): typeof PriceQuotationModel {
   PriceQuotationModel.init(
     {
       id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-      //
+      // relation
+      import_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        validate: {
+          notNull: { msg: 'import_id is required' },
+        },
+      },
       supplier_id: {
         type: DataTypes.INTEGER,
         allowNull: false,

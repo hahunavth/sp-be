@@ -28,7 +28,6 @@ DB.sequelize
     logger.error(err);
   });
 
-const Users = DB.Users;
 const Suppliers = DB.Suppliers;
 const PriceQuotations = DB.PriceQuotations;
 const ImportProducts = DB.ImportProducts;
@@ -65,21 +64,33 @@ const sequelize = DB.sequelize;
   //   logger.verbose('Field: ', key); // this is name of the field
   //   logger.verbose('TypeField: ', Users.getAttributes()[key].type.key); // Sequelize type of field
   // }
+  // const year = 2022;
+  // const sql = `select date_part('month',"created_at"::timestamp) thang, sum(quantity) count
+  //         from import_product
+  //         where date_part('year',"created_at"::timestamp) = ${year}
+  //         group by date_part('month',"created_at"::timestamp)
+  //         ;`;
+  // const data = await DB.sequelize.query(sql, { type: QueryTypes.SELECT, logging: console.log });
+  // console.log({
+  //   data: {
+  //     year,
+  //     data,
+  //   },
+  // });
+  // console.log(data);
 
-  const year = 2022;
-
-  const sql = `select date_part('month',"created_at"::timestamp) thang, sum(quantity) count
-          from import_product
-          where date_part('year',"created_at"::timestamp) = ${year}
-          group by date_part('month',"created_at"::timestamp)
-          ;`;
-
-  const data = await DB.sequelize.query(sql, { type: QueryTypes.SELECT, logging: console.log });
-  console.log({
-    data: {
-      year,
-      data,
-    },
+  const data = await DB.PriceQuotations.findAndCountAll({
+    include: [
+      {
+        model: DB.Suppliers,
+        required: true,
+      },
+      {
+        model: DB.ImportProducts,
+        required: true,
+      },
+    ],
   });
+
   console.log(data);
 })();

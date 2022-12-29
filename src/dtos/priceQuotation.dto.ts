@@ -3,6 +3,8 @@ import { IsNumber, IsOptional, IsString } from 'class-validator';
 
 class CreatePriceQuotationDto implements PriceQuotationCreationAttributes {
   @IsNumber()
+  public import_id: number;
+  @IsNumber()
   public supplier_id: number;
   @IsNumber()
   public product_id: number;
