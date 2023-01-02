@@ -17,10 +17,15 @@ class ImportProductController extends CRUDController<ImportProduct, CreateImport
    * @author HieuTT
    */
   public async getHistoryStatistical(req: Request, res: Response) {
-    const year = req.query.year;
-    if (year === undefined) {
-      res.send('Cần có tham số là năm');
-      return res.status(6969);
+    let year;
+    try {
+      year = Number.parseInt(req.query?.year as string);
+      if (!year) {
+        res.send('Cần có tham số là năm');
+        return res.status(400);
+      }
+    } catch (e) {
+      res.status(400).send('Failed to parse year!');
     }
     const sql = `select date_part('month',"created_at"::timestamp) thang, sum(quantity) count
             from import_product

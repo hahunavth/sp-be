@@ -44,7 +44,11 @@ DB.PriceQuotations.belongsTo(DB.Suppliers, {
   foreignKey: 'supplier_id',
 });
 DB.ImportProducts.belongsTo(DB.Suppliers, {
-  foreignKey: 'supplier_id',
+  foreignKey: {
+    field: 'supplier_id',
+    allowNull: true,
+    defaultValue: null,
+  },
 });
 DB.PriceQuotations.belongsTo(DB.ImportProducts, {
   foreignKey: 'import_id',

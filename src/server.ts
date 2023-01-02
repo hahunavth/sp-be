@@ -16,6 +16,6 @@ process.on('uncaughtException', function (exception) {
 validateEnv();
 
 // NOTE: Thêm route líst vào đây.
-const app = new App([new IndexRoute(), new AuthRoute(), new SupplierRoute(), new PriceQuotationRoute(), new ImportProductRoute()]);
+const app = new App([new IndexRoute(), new SupplierRoute(), new PriceQuotationRoute(), new ImportProductRoute()]);
 
 app.listen();

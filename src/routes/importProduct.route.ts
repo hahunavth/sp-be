@@ -8,7 +8,7 @@ class ImportProductRoute extends CRUDRoute {
     super('/api/v1/import', controller, CreateImportProductDto, CreateImportProductDto);
 
     // statistical endpoint by HieuTT
-    this.router.get('/api/v1/getHistory/statistical', controller.getHistoryStatistical);
+    this.router.get('/api/v1/import/count-per-month', controller.getHistoryStatistical);
     this.router.get('/api/v1/getHistory', controller.getHistory);
   }
 }

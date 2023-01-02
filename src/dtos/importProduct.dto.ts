@@ -5,6 +5,7 @@ class CreateImportProductDto implements ImportProductCreationAttributes {
   @IsNumber()
   @IsOptional()
   public price_quotation_id: number;
+  @IsOptional()
   @IsNumber()
   public supplier_id: number;
   @IsNumber()

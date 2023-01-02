@@ -28,10 +28,7 @@ export default function (sequelize: Sequelize): typeof ImportProductModel {
       // price_quotation_id: DataTypes.INTEGER, // NUllable
       supplier_id: {
         type: DataTypes.INTEGER,
-        allowNull: false,
-        validate: {
-          notNull: { msg: 'supplier_id is required' },
-        },
+        allowNull: true,
       },
       product_id: {
         type: DataTypes.INTEGER,

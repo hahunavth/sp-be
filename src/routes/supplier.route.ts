@@ -7,7 +7,7 @@ class SupplierRoute extends CRUDRoute {
     const controller = new SupplierController();
     super('/api/v1/supplier', controller, CreateSupplierDto, CreateSupplierDto);
     // by HieuTT
-    this.router.get('/api/v1/supplier/getStatistical', controller.getStatistical);
+    this.router.get('/api/v1/supplier/count-per-month', controller.getStatistical);
   }
 }
 

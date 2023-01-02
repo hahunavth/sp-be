@@ -20,10 +20,15 @@ class SupplierController extends CRUDController<Supplier, CreateSupplierDto, Cre
    * REVIEW: ???
    */
   public async getStatistical(req: Request, res: Response) {
-    const year = req.query.year;
-    if (year === undefined) {
-      res.send('Cần có tham số là năm');
-      return res.status(6969);
+    let year;
+    try {
+      year = Number.parseInt(req.query?.year as string);
+      if (!year) {
+        res.send('Cần có tham số là năm');
+        return res.status(400);
+      }
+    } catch (e) {
+      res.status(400).send('Failed to parse year!');
     }
     const sql = `select date_part('month',"created_at"::timestamp) thang, count(1) count
                 from supplier
@@ -31,11 +36,16 @@ class SupplierController extends CRUDController<Supplier, CreateSupplierDto, Cre
                 group by thang
                 ;`;
 
-    const data = await DB.sequelize.query(sql, { type: QueryTypes.SELECT });
+    const data: any = await DB.sequelize.query(sql, { type: QueryTypes.SELECT });
 
     res.status(200).json({
       year: year,
-      data: data,
+      data: data?.map(row => {
+        row.count = Number.parseInt(row?.count);
+        row.month = row?.thang;
+        delete row.thang;
+        return row;
+      }),
     });
   }
 }

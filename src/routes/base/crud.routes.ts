@@ -9,6 +9,7 @@ class CRUDRoute extends BaseRoute {
     this.controller = controller;
 
     this.initializeRoutes(CreateDtoCls, UpdateDtoCls);
+    console.log(this.router.stack);
   }
 
   private initializeRoutes(CreateDtoCls: Object, UpdateDtoCls: Object) {
