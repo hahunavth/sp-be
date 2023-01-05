@@ -91,15 +91,30 @@ class BaseController {
         .filter(key => key != 'startAt' && key != 'endAt')
         .forEach(key => {
           if (Object.keys(model.getAttributes()).includes(key)) {
-            if (model.getAttributes()[key].type.key == 'STRING') where_filter[key] = { [Op.like]: '%' + req.query[key] + '%' };
-            if (model.getAttributes()[key].type.key == 'INTEGER') where_filter[key] = req.query[key];
-            if (model.getAttributes()[key].type.key == 'DATE') where_filter[key] = req.query[key];
+            if (model.getAttributes()[key].type.key === 'STRING') where_filter[key] = { [Op.like]: '%' + req.query[key] + '%' };
+            if (model.getAttributes()[key].type.key === 'INTEGER') where_filter[key] = req.query[key];
+            if (model.getAttributes()[key].type.key === 'DATE') where_filter[key] = req.query[key];
             filter[key] = req.query[key];
           }
         });
       // logger.data(filter);
 
       return { where_filter, filter };
+    },
+
+    parse_filter_raw: (req: Request, model: { [key: string]: string }) => {
+      const filter = {};
+      Object.keys(req.query)
+        .filter(key => key != 'startAt' && key != 'endAt')
+        .forEach(key => {
+          if (Object.keys(model).includes(key)) {
+            if (model[key] === 'STRING') filter[key] = req.query[key];
+            if (model[key] === 'INTEGER') filter[key] = Number.parseInt(req.query[key]);
+            // if (model[key] === 'DATE') filter[key] = req.query[key];
+          }
+        });
+
+      return { filter };
     },
   };
 }

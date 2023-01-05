@@ -6,6 +6,7 @@ import { Request } from 'express';
 import { NextFunction, Response } from 'express-serve-static-core';
 import DB from '@/databases';
 import { QueryTypes } from 'sequelize';
+import { resolveTxt } from 'dns';
 
 class ImportProductController extends CRUDController<ImportProduct, CreateImportProductDto, CreateImportProductDto, ImportProductService> {
   constructor() {
@@ -108,16 +109,34 @@ class ImportProductController extends CRUDController<ImportProduct, CreateImport
 
   /**
    * Lấy giá nhập hàng:
-   * - Giá nhập của 1 loại hàng là giá cao nhất của 3 lần nhập gần nhất.
+   * - Tiêu chí đưa ra giá nhập:
+   *  + Chỉ lấy 10 đơn nhập gần nhất trong 1 năn tính đến hiện tại
    * @return Danh sách nhập
    */
-  public async getImportRecommentUnitPrice(req: Request, res: Response) {
-    // DB.ImportProducts.findAndCountAll({
+  public getImportRecommentUnitPrice = async (req: Request, res: Response) => {
+    const { filter } = this._req.parse_filter_raw(req, {
+      product_id: 'INTEGER',
+      subproduct_id: 'INTEGER',
+    });
 
-    // })
+    const sql = `
+    select imp.product_id, imp.subproduct_id, max(price_quotation.unit_price) from (
+      select ROW_NUMBER() OVER (PARTITION BY price_quotation_id ORDER BY created_at DESC) AS stt,
+        import_product.product_id, import_product.subproduct_id, import_product.price_quotation_id
+      from import_product
+      where import_product.created_at >= date_trunc('year', now())
+    ) as imp
+    inner join price_quotation on price_quotation.id = imp.price_quotation_id
+    where stt < 10
+    group by imp.product_id, imp.subproduct_id;`;
+    const data = await DB.sequelize.query(sql, { type: QueryTypes.SELECT, logging: console.log });
 
-    return;
-  }
+    return res.status(200).json({
+      count: data?.length,
+      filter,
+      data,
+    });
+  };
 }
 
 export default ImportProductController;

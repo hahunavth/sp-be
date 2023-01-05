@@ -92,10 +92,16 @@ const sequelize = DB.sequelize;
   //   ],
   // });
 
-  const sql = `select max(price_quotation.unit_price), import_product.product_id, import_product.subproduct_id
+  const sql = `
+  select imp.product_id, imp.subproduct_id, max(price_quotation.unit_price) from (
+    select ROW_NUMBER() OVER (PARTITION BY price_quotation_id ORDER BY created_at DESC) AS stt,
+      import_product.product_id, import_product.subproduct_id, import_product.price_quotation_id
     from import_product
-    inner join price_quotation on price_quotation.id = import_product.price_quotation_id
-    group by import_product.product_id, import_product.subproduct_id;`;
+    where import_product.created_at >= date_trunc('year', now())
+  ) as imp
+  inner join price_quotation on price_quotation.id = imp.price_quotation_id
+  where stt < 10
+  group by imp.product_id, imp.subproduct_id;`;
   const data = await DB.sequelize.query(sql, { type: QueryTypes.SELECT, logging: console.log });
 
   console.log(data);
