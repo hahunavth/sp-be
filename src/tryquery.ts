@@ -102,6 +102,7 @@ const sequelize = DB.sequelize;
   inner join price_quotation on price_quotation.id = imp.price_quotation_id
   where stt < 10
   group by imp.product_id, imp.subproduct_id;`;
+
   const data = await DB.sequelize.query(sql, { type: QueryTypes.SELECT, logging: console.log });
 
   console.log(data);
