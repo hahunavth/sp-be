@@ -1,6 +1,9 @@
 import { PriceQuotationCreationAttributes } from '@/models/priceQuotation.model';
 import { IsNumber, IsOptional, IsString } from 'class-validator';
 
+/**
+ * NOTE: IsOptional Cần đặt dưới các validate decorator khác!!!!
+ */
 class CreatePriceQuotationDto implements PriceQuotationCreationAttributes {
   @IsNumber()
   public import_id: number;

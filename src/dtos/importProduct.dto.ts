@@ -1,12 +1,15 @@
 import { ImportProductCreationAttributes } from '@/models/importProduct.model';
 import { IsString, IsNumber, IsOptional } from 'class-validator';
 
+/**
+ * NOTE: IsOptional Cần đặt dưới các validate decorator khác!!!!
+ */
 class CreateImportProductDto implements ImportProductCreationAttributes {
   @IsNumber()
   @IsOptional()
   public price_quotation_id: number;
-  @IsOptional()
   @IsNumber()
+  @IsOptional()
   public supplier_id: number;
   @IsNumber()
   public product_id: number;

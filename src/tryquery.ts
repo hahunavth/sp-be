@@ -92,8 +92,10 @@ const sequelize = DB.sequelize;
   //   ],
   // });
 
-  const sql =
-    'select price_quotation.unit_price, import_product.id from import_product inner join price_quotation on price_quotation.id = import_product.price_quotation_id';
+  const sql = `select max(price_quotation.unit_price), import_product.product_id, import_product.subproduct_id
+    from import_product
+    inner join price_quotation on price_quotation.id = import_product.price_quotation_id
+    group by import_product.product_id, import_product.subproduct_id;`;
   const data = await DB.sequelize.query(sql, { type: QueryTypes.SELECT, logging: console.log });
 
   console.log(data);
