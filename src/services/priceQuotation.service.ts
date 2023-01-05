@@ -17,7 +17,6 @@ class PriceQuotationService extends CRUDService<PriceQuotation, CreatePriceQuota
    * price quotation join import and supplier
    */
   public async findAndCountAll(query: any): Promise<{ count: number; rows: PriceQuotation[] }> {
-    console.log(query);
     let include = [
       {
         model: DB.Suppliers,
