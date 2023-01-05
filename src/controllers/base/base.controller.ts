@@ -65,10 +65,10 @@ class BaseController {
     parse_time: (req: Request) => {
       const { startAt, endAt } = req.query;
       const result: { startAt?: string; endAt?: string; where?: any } = {};
-      if (startAt != null && moment(String(startAt))) {
+      if (startAt !== null && moment(String(startAt))) {
         result.startAt = moment(String(startAt)).format('YYYY-MM-DD HH:mm:ss');
       }
-      if (endAt != null && moment(String(endAt))) {
+      if (endAt !== null && moment(String(endAt))) {
         result.endAt = moment(String(endAt)).format('YYYY-MM-DD HH:mm:ss');
       }
 
