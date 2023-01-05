@@ -9,6 +9,7 @@ export class SupplierModel extends Model<Supplier, SupplierCreationAttributes> i
   public phone: string;
   public email: string;
   public address: string;
+  // public
   public note: string;
   public created_by: string;
   public updated_by: string;

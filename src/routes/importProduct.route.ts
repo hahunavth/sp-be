@@ -10,6 +10,8 @@ class ImportProductRoute extends CRUDRoute {
     // statistical endpoint by HieuTT
     this.router.get('/api/v1/import/count-per-month', controller.getHistoryStatistical);
     this.router.get('/api/v1/getHistory', controller.getHistory);
+    // provide api to SP_06: lay gia nhap
+    this.router.get('/api/v1/import/get-price', controller.getImportRecommentUnitPrice);
   }
 }
 
