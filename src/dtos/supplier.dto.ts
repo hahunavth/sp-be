@@ -1,6 +1,9 @@
 import { SupplierCreationAttributes } from '@/models/supplier.model';
 import { IsString, IsEmail, IsOptional } from 'class-validator';
 
+/**
+ * NOTE: IsOptional Cần đặt dưới các validate decorator khác!!!!
+ */
 export class CreateSupplierDto implements SupplierCreationAttributes {
   @IsString()
   public name: string;
