@@ -5,14 +5,26 @@ export type ImportProductCreationAttributes = Optional<ImportProduct, 'id' | 'cr
 
 export class ImportProductModel extends Model<ImportProduct, ImportProductCreationAttributes> implements ImportProduct {
   public id: number;
+
   public price_quotation_id: number;
   public supplier_id: number;
+
+  // Định danh product
   public product_id: number;
   public subproduct_id: number;
+
   public quantity: number;
-  public total_cost: number;
-  public status: string;
+  public original_cost: number; // tổng tiền chưa tính thuế = quantity * price_quotation.unit_price
+  public other_cost: number; // tiền khác (ko tính thuế)
+  public tax: number; // tiền thuế (Mặc định tính 10% original_cost)
+
+  public payment_status: string; // trạng thái thanh toán: PAID, UNPAID,NO_PAYMENT_REQUIRE
+  public payment_term: Date; // thời hạn thanh toán
+  public payment_date: Date; // ngày thanh toán trong thực tế
+
+  public status: string; // trạng thái của đơn nhập hàng: REQUEST, REJECT, APPROVE, CANCELED, P_Q_ASSIGNED, WAITING_FOR_STOCK, COMPLETED
   public note: string;
+
   public created_by: string;
   public updated_by: string;
 
@@ -55,13 +67,30 @@ export default function (sequelize: Sequelize): typeof ImportProductModel {
           notNull: { msg: 'quantity is required' },
         },
       }, // Slg sp
-      total_cost: {
+      original_cost: {
         type: DataTypes.INTEGER,
         allowNull: false,
         validate: {
-          notNull: { msg: 'total_cost is required' },
+          notNull: { msg: 'original_cost is required' },
         },
-      }, // Tong so tien
+      },
+      other_cost: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0,
+      },
+      payment_date: {
+        type: DataTypes.DATE,
+        allowNull: true,
+      },
+      payment_status: {
+        type: DataTypes.STRING,
+      },
+      payment_term: {
+        type: DataTypes.DATE,
+      },
+      tax: {
+        type: DataTypes.INTEGER,
+      },
       status: {
         type: DataTypes.STRING,
         allowNull: false,

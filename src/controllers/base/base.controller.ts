@@ -65,10 +65,10 @@ class BaseController {
     parse_time: (req: Request) => {
       const { startAt, endAt } = req.query;
       const result: { startAt?: string; endAt?: string; where?: any } = {};
-      if (startAt !== null && moment(String(startAt))) {
+      if (startAt && moment(String(startAt))) {
         result.startAt = moment(String(startAt)).format('YYYY-MM-DD HH:mm:ss');
       }
-      if (endAt !== null && moment(String(endAt))) {
+      if (endAt && moment(String(endAt))) {
         result.endAt = moment(String(endAt)).format('YYYY-MM-DD HH:mm:ss');
       }
 
@@ -109,7 +109,7 @@ class BaseController {
         .forEach(key => {
           if (Object.keys(model).includes(key)) {
             if (model[key] === 'STRING') filter[key] = req.query[key];
-            if (model[key] === 'INTEGER') filter[key] = Number.parseInt(req.query[key]);
+            if (model[key] === 'INTEGER') filter[key] = Number.parseInt(req.query[key] as string);
             // if (model[key] === 'DATE') filter[key] = req.query[key];
           }
         });

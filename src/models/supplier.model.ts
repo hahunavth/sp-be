@@ -9,7 +9,12 @@ export class SupplierModel extends Model<Supplier, SupplierCreationAttributes> i
   public phone: string;
   public email: string;
   public address: string;
-  // public
+  //
+  public tax_code: string;
+  public bank_acc_num: string;
+  public bank_name: string;
+  public bank_city: string;
+  //
   public note: string;
   public created_by: string;
   public updated_by: string;
@@ -43,6 +48,12 @@ export default function (sequelize: Sequelize): typeof SupplierModel {
         validate: { isEmail: true },
       },
       address: DataTypes.STRING,
+      //
+      tax_code: DataTypes.STRING,
+      bank_acc_num: DataTypes.STRING,
+      bank_name: DataTypes.STRING,
+      bank_city: DataTypes.STRING,
+      //
       note: {
         type: DataTypes.STRING,
         defaultValue: '',

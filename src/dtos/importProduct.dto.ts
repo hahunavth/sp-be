@@ -1,5 +1,5 @@
 import { ImportProductCreationAttributes } from '@/models/importProduct.model';
-import { IsString, IsNumber, IsOptional } from 'class-validator';
+import { IsString, IsNumber, IsOptional, IsDate } from 'class-validator';
 
 /**
  * NOTE: IsOptional Cần đặt dưới các validate decorator khác!!!!
@@ -17,8 +17,25 @@ class CreateImportProductDto implements ImportProductCreationAttributes {
   public subproduct_id: number;
   @IsNumber()
   public quantity: number;
+
   @IsNumber()
-  public total_cost: number;
+  original_cost: number; // tổng tiền chưa tính thuế = quantity * price_quotation.unit_price
+  @IsNumber()
+  @IsOptional()
+  other_cost: number; // tiền khác (ko tính thuế)
+  @IsNumber()
+  @IsOptional()
+  tax: number; // tiền thuế (Mặc định tính 10% original_cost)
+
+  @IsString()
+  payment_status: string; // trạng thái thanh toán: PAID, UNPAID,NO_PAYMENT_REQUIRE
+  @IsDate()
+  @IsOptional()
+  payment_term: Date; // thời hạn thanh toán
+  @IsDate()
+  @IsOptional()
+  payment_date: Date; // ngày thanh toán trong thực tế
+
   @IsString()
   public status: string;
   @IsString()
