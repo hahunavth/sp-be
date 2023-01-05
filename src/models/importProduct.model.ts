@@ -5,7 +5,7 @@ export type ImportProductCreationAttributes = Optional<ImportProduct, 'id' | 'cr
 
 export class ImportProductModel extends Model<ImportProduct, ImportProductCreationAttributes> implements ImportProduct {
   public id: number;
-  // public price_quotation_id: number;
+  public price_quotation_id: number;
   public supplier_id: number;
   public product_id: number;
   public subproduct_id: number;
@@ -25,7 +25,10 @@ export default function (sequelize: Sequelize): typeof ImportProductModel {
     {
       id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
       //
-      // price_quotation_id: DataTypes.INTEGER, // NUllable
+      price_quotation_id: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+      },
       supplier_id: {
         type: DataTypes.INTEGER,
         allowNull: true,

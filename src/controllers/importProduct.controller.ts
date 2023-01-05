@@ -105,6 +105,19 @@ class ImportProductController extends CRUDController<ImportProduct, CreateImport
       data: data,
     });
   }
+
+  /**
+   * Lấy giá nhập hàng:
+   * - Giá nhập của 1 loại hàng là giá cao nhất của 3 lần nhập gần nhất.
+   * @return Danh sách nhập
+   */
+  public async getImportRecommentUnitPrice(req: Request, res: Response) {
+    // DB.ImportProducts.findAndCountAll({
+
+    // })
+
+    return;
+  }
 }
 
 export default ImportProductController;

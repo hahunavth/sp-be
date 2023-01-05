@@ -79,18 +79,22 @@ const sequelize = DB.sequelize;
   // });
   // console.log(data);
 
-  const data = await DB.PriceQuotations.findAndCountAll({
-    include: [
-      {
-        model: DB.Suppliers,
-        required: true,
-      },
-      {
-        model: DB.ImportProducts,
-        required: true,
-      },
-    ],
-  });
+  // const data = await DB.PriceQuotations.findAndCountAll({
+  //   include: [
+  //     {
+  //       model: DB.Suppliers,
+  //       required: true,
+  //     },
+  //     {
+  //       model: DB.ImportProducts,
+  //       required: true,
+  //     },
+  //   ],
+  // });
+
+  const sql =
+    'select price_quotation.unit_price, import_product.id from import_product inner join price_quotation on price_quotation.id = import_product.price_quotation_id';
+  const data = await DB.sequelize.query(sql, { type: QueryTypes.SELECT, logging: console.log });
 
   console.log(data);
 })();
