@@ -37,6 +37,7 @@
     "morgan": "^1.10.0",
     "mysql2": "^2.3.3",
     "pg": "^8.8.0",
+    "postman-to-openapi": "^3.0.0",
     "sequelize": "^6.21.3",
     "swagger-jsdoc": "^6.2.1",
     "swagger-ui-express": "^4.5.0",
