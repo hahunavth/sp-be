@@ -15,6 +15,50 @@ class ImportProductController extends CRUDController<ImportProduct, CreateImport
   }
 
   /**
+   * NOTE: OVERRIDE
+   * - Với yêu cầu nhập hàng: không join (status="REQUEST", "APPROVE", "REJECT")
+   * - Với query status
+   */
+  public getAll = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { limit, offset, page } = this._req.parse_paginate(req);
+      const { startAt, endAt, where } = this._req.parse_time(req);
+      const { filter, where_filter } = this._req.parse_filter(req, this.service.table);
+      const order = [['created_at', 'DESC']];
+
+      const findAllsData: {
+        count: number;
+        rows: ImportProduct[];
+      } = ['COMPLETED', 'P_Q_ASSIGNED'].includes(filter['status'])
+        ? await this.service.findAndCountWithJoinedPQ({
+            limit,
+            offset,
+            where: { ...where, ...where_filter },
+            order,
+          })
+        : await this.service.findAndCountAll({
+            limit,
+            offset,
+            where: { ...where, ...where_filter },
+            order,
+          });
+
+      this._res.paginate(res, {
+        message: 'findAll',
+        limit,
+        page,
+        startAt,
+        endAt,
+        filter,
+        count: findAllsData?.count,
+        data: findAllsData?.rows,
+      });
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  /**
    * So luong import theo thang trong nam
    * @author HieuTT
    */
