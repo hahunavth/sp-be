@@ -9,7 +9,7 @@ const errorMiddleware = (error: HttpException, req: Request, res: Response, next
 
     if (process.env.NODE_ENV === 'PRODUCTION') logger.error(`[${req.method}] ${req.path} >> StatusCode:: ${status}, Message:: ${message}`);
     else console.log(error);
-    res.status(status).json({ message });
+    return res.status(status).json({ message });
   } catch (error) {
     next(error);
   }

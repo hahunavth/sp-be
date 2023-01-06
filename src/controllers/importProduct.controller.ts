@@ -7,6 +7,7 @@ import { NextFunction, Response } from 'express-serve-static-core';
 import DB from '@/databases';
 import { QueryTypes } from 'sequelize';
 import { resolveTxt } from 'dns';
+import { HttpException } from '@/exceptions/HttpException';
 
 class ImportProductController extends CRUDController<ImportProduct, CreateImportProductDto, CreateImportProductDto, ImportProductService> {
   constructor() {
@@ -111,28 +112,57 @@ class ImportProductController extends CRUDController<ImportProduct, CreateImport
    * Lấy giá nhập hàng:
    * - Tiêu chí đưa ra giá nhập:
    *  + Chỉ lấy 10 đơn nhập gần nhất trong 1 năn tính đến hiện tại
+   *
+   * QueryParameter:
+   * - groupBy?: product_id, subproduct_id (default: product_id)
+   *
    * @return Danh sách nhập
    */
-  public getImportRecommentUnitPrice = async (req: Request, res: Response) => {
+  public getImportRecommentUnitPrice = async (
+    req: Request<
+      {},
+      {},
+      {},
+      {
+        groupBy?: string;
+      }
+    >,
+    res: Response,
+  ) => {
     const { filter } = this._req.parse_filter_raw(req, {
       product_id: 'INTEGER',
       subproduct_id: 'INTEGER',
     });
+    const groupByList = ['product_id', 'subproduct_id'];
+    let groupBy = groupByList;
+
+    const { groupBy: groupByKey } = req.query;
+    groupBy = groupByList.filter(v => v === (groupByKey || 'product_id'));
+    if (groupBy.length == 0) {
+      return res.status(400).json({
+        message: 'Query groupBy must in ' + groupByList,
+      });
+    }
+
+    function mapTableAttrStr(prefix: string, groupBy: string[]) {
+      return groupBy.map(item => `${prefix}.${item}`).join(', ');
+    }
 
     const sql = `
-    select imp.product_id, imp.subproduct_id, max(price_quotation.unit_price) from (
+    select ${mapTableAttrStr('imp', groupBy)}, max(price_quotation.unit_price) as price from (
       select ROW_NUMBER() OVER (PARTITION BY price_quotation_id ORDER BY created_at DESC) AS stt,
-        import_product.product_id, import_product.subproduct_id, import_product.price_quotation_id
+      ${mapTableAttrStr('import_product', groupBy)}, import_product.price_quotation_id
       from import_product
       where import_product.created_at >= date_trunc('year', now())
     ) as imp
     inner join price_quotation on price_quotation.id = imp.price_quotation_id
     where stt < 10
-    group by imp.product_id, imp.subproduct_id;`;
+    group by ${mapTableAttrStr('imp', groupBy)};`;
     const data = await DB.sequelize.query(sql, { type: QueryTypes.SELECT, logging: console.log });
 
     return res.status(200).json({
       count: data?.length,
+      groupBy,
       filter,
       data,
     });

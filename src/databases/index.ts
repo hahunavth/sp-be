@@ -43,6 +43,9 @@ const DB = {
 DB.PriceQuotations.belongsTo(DB.Suppliers, {
   foreignKey: 'supplier_id',
 });
+DB.PriceQuotations.belongsTo(DB.ImportProducts, {
+  foreignKey: 'import_id',
+});
 DB.ImportProducts.belongsTo(DB.Suppliers, {
   foreignKey: {
     field: 'supplier_id',
@@ -51,8 +54,8 @@ DB.ImportProducts.belongsTo(DB.Suppliers, {
     // defaultValue: null,
   },
 });
-DB.PriceQuotations.belongsTo(DB.ImportProducts, {
-  foreignKey: 'import_id',
+DB.ImportProducts.belongsTo(DB.PriceQuotations, {
+  foreignKey: 'price_quotation_id',
 });
 
 export default DB;
