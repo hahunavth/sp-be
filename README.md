@@ -6,6 +6,3 @@
 
 <!-- -r dotenv-flow/config -->
 
-## Todo
-
-- [ ] Api lấy giá gốc của sản phẩm
