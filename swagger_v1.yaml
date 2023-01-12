@@ -8,13 +8,13 @@ tags:
   - name: Import product
   - name: Price Quotation
   - name: Supplier
-  - name: Flow nhập hàng
+  - name: 'Replicate: Flow nhập hàng'
     description: |-
       # Note
 
       - Đây là quy trình tạm thời để nhập hàng
       - \*Supplier\* mới có thể tạo supplier trước bước 3 của quy trình
-  - name: Provide API
+  - name: 'Replicate: Provide API'
     description: |-
       ## Danh sách Api cung cấp cho nhóm khác
 
@@ -27,7 +27,13 @@ paths:
     get:
       tags:
         - Import product
-      summary: get all
+      summary: get all Import request join
+      parameters:
+        - name: status
+          in: query
+          schema:
+            type: string
+          example: COMPLETED
       responses:
         '200':
           description: Successful response
@@ -35,7 +41,7 @@ paths:
             application/json: {}
     post:
       tags:
-        - Flow nhập hàng
+        - 'Replicate: Flow nhập hàng'
       summary: '1. ImpP:Create: Tạo yêu cầu nhập hàng'
       description: |-
         ``` json
@@ -78,6 +84,16 @@ paths:
           description: Successful response
           content:
             application/json: {}
+  /import/history:
+    get:
+      tags:
+        - Import product
+      summary: get all Import request join Copy
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
   /import/{id}:
     get:
       tags:
@@ -89,7 +105,7 @@ paths:
           schema:
             type: integer
           required: true
-          example: '1'
+          example: '2'
       responses:
         '200':
           description: Successful response
@@ -97,7 +113,7 @@ paths:
             application/json: {}
     put:
       tags:
-        - Flow nhập hàng
+        - 'Replicate: Flow nhập hàng'
       summary: '6. ImpP:Upd: Xác nhận nhập hàng thành công'
       requestBody:
         content:
@@ -112,7 +128,7 @@ paths:
           schema:
             type: integer
           required: true
-          example: '12'
+          example: '2'
       responses:
         '200':
           description: Successful response
@@ -154,7 +170,7 @@ paths:
           in: query
           schema:
             type: integer
-          example: '2022'
+          example: '2023'
         - name: quarter
           in: query
           schema:
@@ -168,14 +184,14 @@ paths:
   /price-quotation/:
     get:
       tags:
-        - Flow nhập hàng
-      summary: '4. PQ:getAll: Danh sách ycnh với import_id'
+        - 'Replicate: Flow nhập hàng'
+      summary: '4. PQ:GetAll: Danh sách ycnh với import_id'
       parameters:
         - name: import_id
           in: query
           schema:
             type: integer
-          example: '12'
+          example: '2'
       responses:
         '200':
           description: Successful response
@@ -183,7 +199,7 @@ paths:
             application/json: {}
     post:
       tags:
-        - Flow nhập hàng
+        - 'Replicate: Flow nhập hàng'
       summary: '3. PQ:Create: Tạo báo giá cho ycnh đã ACCEPT'
       description: |-
         ``` json
@@ -210,7 +226,7 @@ paths:
             schema:
               type: object
               example:
-                import_id: 12
+                import_id: 2
                 supplier_id: 1
                 product_id: 4
                 subproduct_id: 1
@@ -238,7 +254,11 @@ paths:
         - Price Quotation
       summary: update by id
       requestBody:
-        content: {}
+        content:
+          '*/*':
+            schema:
+              type: string
+              example: '""'
       responses:
         '200':
           description: Successful response
@@ -256,7 +276,7 @@ paths:
   /supplier/:
     get:
       tags:
-        - Provide API
+        - 'Replicate: Provide API'
       summary: Danh sách nhà cung cấp
       parameters:
         - name: startAt
@@ -353,7 +373,7 @@ paths:
           in: query
           schema:
             type: integer
-          example: '2022'
+          example: '2023'
       responses:
         '200':
           description: Successful response
@@ -362,7 +382,7 @@ paths:
   /import/get-price:
     get:
       tags:
-        - Provide API
+        - 'Replicate: Provide API'
       summary: Lấy giá nhập hàng
       parameters:
         - name: groupBy

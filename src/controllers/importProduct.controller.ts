@@ -6,8 +6,6 @@ import { Request } from 'express';
 import { NextFunction, Response } from 'express-serve-static-core';
 import DB from '@/databases';
 import { QueryTypes } from 'sequelize';
-import { resolveTxt } from 'dns';
-import { HttpException } from '@/exceptions/HttpException';
 
 class ImportProductController extends CRUDController<ImportProduct, CreateImportProductDto, CreateImportProductDto, ImportProductService> {
   constructor() {
@@ -16,7 +14,7 @@ class ImportProductController extends CRUDController<ImportProduct, CreateImport
 
   /**
    * NOTE: OVERRIDE
-   * - Với yêu cầu nhập hàng: không join (status="REQUEST", "APPROVE", "REJECT")
+   * - Với yêu cầu nhập hàng: không join (status="REQUEST", "REJECT")
    * - Với query status
    */
   public getAll = async (req: Request, res: Response, next: NextFunction) => {
@@ -29,7 +27,7 @@ class ImportProductController extends CRUDController<ImportProduct, CreateImport
       const findAllsData: {
         count: number;
         rows: ImportProduct[];
-      } = ['COMPLETED', 'P_Q_ASSIGNED'].includes(filter['status'])
+      } = ['COMPLETED', 'P_Q_ASSIGNED', 'ACCEPT'].includes(filter['status'])
         ? await this.service.findAndCountWithJoinedPQ({
             limit,
             offset,
@@ -42,6 +40,42 @@ class ImportProductController extends CRUDController<ImportProduct, CreateImport
             where: { ...where, ...where_filter },
             order,
           });
+
+      this._res.paginate(res, {
+        message: 'findAll',
+        limit,
+        page,
+        startAt,
+        endAt,
+        filter,
+        count: findAllsData?.count,
+        data: findAllsData?.rows,
+      });
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  /**
+   * NOTE: OVERRIDE
+   * - Join các bảng
+   */
+  public getImportHist = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { limit, offset, page } = this._req.parse_paginate(req);
+      const { startAt, endAt, where } = this._req.parse_time(req);
+      const { filter, where_filter } = this._req.parse_filter(req, this.service.table);
+      const order = [['created_at', 'DESC']];
+
+      const findAllsData: {
+        count: number;
+        rows: ImportProduct[];
+      } = await this.service.findAndCountWithJoinedPQ({
+        limit,
+        offset,
+        where: { ...where, ...where_filter },
+        order,
+      });
 
       this._res.paginate(res, {
         message: 'findAll',
@@ -81,8 +115,41 @@ class ImportProductController extends CRUDController<ImportProduct, CreateImport
 
     const data = await DB.sequelize.query(sql, { type: QueryTypes.SELECT });
     return res.status(200).json({
+      message: 'So luong nhap hang theo thang, nam',
       year,
       data,
+    });
+  }
+
+  /**
+   * So luong import theo thang trong nam
+   * @author HieuTT
+   */
+  public async getHistoryTotalCostStatistical(req: Request, res: Response) {
+    let year;
+    try {
+      year = Number.parseInt(req.query?.year as string);
+      if (!year) {
+        res.send('Cần có tham số là năm');
+        return res.status(400);
+      }
+    } catch (e) {
+      res.status(400).send('Failed to parse year!');
+    }
+    const sql = `select date_part('month',"created_at"::timestamp) thang, sum(total_cost) s
+              from import_product
+              where date_part('year',"created_at"::timestamp) = ${year} and status='COMPLETED'
+              group by date_part('month',"created_at"::timestamp)
+              ;`;
+
+    const data = await DB.sequelize.query(sql, { type: QueryTypes.SELECT });
+    return res.status(200).json({
+      message: 'Chi phi nhap hang theo thang',
+      year,
+      data: data?.map(item => ({
+        month: item['thang'],
+        total_cost: Number.parseInt(item['s']),
+      })),
     });
   }
 

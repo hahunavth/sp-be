@@ -12,6 +12,10 @@ class ImportProductRoute extends CRUDRoute {
     this.router.get('/api/v1/getHistory', controller.getHistory);
     // provide api to SP_06: lay gia nhap
     this.router.get('/api/v1/import/get-price', controller.getImportRecommentUnitPrice);
+    // join
+    this.router.get('/api/v1/import/history', controller.getImportHist);
+    // tong tien nhap hang theo thang / nam
+    this.router.get('/api/v1/import/total-cost-per-month', controller.getHistoryTotalCostStatistical);
   }
 }
 
