@@ -1,8 +1,9 @@
-##
+# Structure programming backend
 
-- Analytic
-  https://deepscan.io/
-  https://deepsource.io/gh/hahunavth/sp-project/issues/?category=performance&page=1
+[![Fly Deploy](https://github.com/hahunavth/sp-be/actions/workflows/fly.yml/badge.svg)](https://github.com/hahunavth/sp-be/actions/workflows/fly.yml)
+[![DeepSource](https://deepsource.io/gh/hahunavth/sp-be.svg/?label=active+issues&show_trend=true&token=97t8NqhWzrn9KdmWLvxuowG0)](https://deepsource.io/gh/hahunavth/sp-be/?ref=repository-badge)
+[![DeepSource](https://deepsource.io/gh/hahunavth/sp-be.svg/?label=resolved+issues&show_trend=true&token=97t8NqhWzrn9KdmWLvxuowG0)](https://deepsource.io/gh/hahunavth/sp-be/?ref=repository-badge)
 
-<!-- -r dotenv-flow/config -->
+- Group: SP_17
 
+ 
