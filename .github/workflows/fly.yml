@@ -5,10 +5,23 @@ on:
       - main
 env:
   FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+
 jobs:
   deploy:
       name: Deploy app
       runs-on: ubuntu-latest
+      env:
+        PORT: ${{ vars.PORT }}
+        DB_HOST: ${{ vars.DB_HOST }}
+        DB_PORT: ${{ vars.DB_PORT }}
+        DB_USER: ${{ vars.DB_USER }}
+        DB_PASSWORD: ${{ vars.DB_PASSWORD }}
+        DB_DATABASE: ${{ vars.DB_DATABASE }}
+        SECRET_KEY: ${{ vars.SECRET_KEY }}
+        LOG_FORMAT: ${{ vars.LOG_FORMAT }}
+        LOG_DIR: ${{ vars.LOG_DIR }}
+        ORIGIN: ${{ vars.ORIGIN }}
+        CREDENTIALS: ${{ vars.CREDENTIALS }}
       steps:
         - uses: actions/checkout@v3
         - uses: superfly/flyctl-actions/setup-flyctl@master
