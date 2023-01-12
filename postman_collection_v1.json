@@ -1,917 +1,766 @@
 {
-	"info": {
-		"_postman_id": "1044209a-d32d-43e9-8ece-74bf2f8a7f22",
-		"name": "1. Version 1",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "15947742"
-	},
-	"item": [
-		{
-			"name": "Import product",
-			"item": [
-				{
-					"name": "get all import request",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{baseUrl}}/import",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"import"
-							],
-							"query": [
-								{
-									"key": "page",
-									"value": "1",
-									"disabled": true
-								},
-								{
-									"key": "limit",
-									"value": "2",
-									"disabled": true
-								},
-								{
-									"key": "startAt",
-									"value": "2021-03-01 00:00:00",
-									"disabled": true
-								}
-							]
-						}
-					},
-					"response": [
-						{
-							"name": "get all import request",
-							"originalRequest": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{baseUrl}}/import?page=1&limit=2&startAt=2021-03-01 00:00:00",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"import"
-									],
-									"query": [
-										{
-											"key": "page",
-											"value": "1"
-										},
-										{
-											"key": "limit",
-											"value": "2"
-										},
-										{
-											"key": "startAt",
-											"value": "2021-03-01 00:00:00"
-										}
-									]
-								}
-							},
-							"_postman_previewlanguage": "json",
-							"header": null,
-							"cookie": [],
-							"body": "{\n    \"message\": \"findAll\",\n    \"count\": 1,\n    \"filter\": {},\n    \"data\": [\n        {\n            \"id\": 1,\n            \"price_quotation_id\": null,\n            \"supplier_id\": null,\n            \"product_id\": 2,\n            \"subproduct_id\": 4,\n            \"quantity\": 1000,\n            \"total_cost\": 0,\n            \"status\": \"ACCEPT\",\n            \"note\": \"abc\",\n            \"created_by\": \"\",\n            \"updated_by\": \"\",\n            \"createdAt\": \"2023-01-06T17:55:04.649Z\",\n            \"updatedAt\": \"2023-01-06T17:55:18.502Z\",\n            \"SupplierModelId\": null\n        }\n    ]\n}"
-						}
-					]
-				},
-				{
-					"name": "get all Import request join",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{baseUrl}}/import?status=COMPLETED",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"import"
-							],
-							"query": [
-								{
-									"key": "page",
-									"value": "1",
-									"disabled": true
-								},
-								{
-									"key": "limit",
-									"value": "2",
-									"disabled": true
-								},
-								{
-									"key": "startAt",
-									"value": "2021-03-01 00:00:00",
-									"disabled": true
-								},
-								{
-									"key": "status",
-									"value": "COMPLETED"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "get all Import request join Copy",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{baseUrl}}/import/history",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"import",
-								"history"
-							],
-							"query": [
-								{
-									"key": "page",
-									"value": "1",
-									"disabled": true
-								},
-								{
-									"key": "limit",
-									"value": "2",
-									"disabled": true
-								},
-								{
-									"key": "startAt",
-									"value": "2021-03-01 00:00:00",
-									"disabled": true
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "import product",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"supplier_id\": 1,\n    \"product_id\": 2,\n    \"subproduct_id\": 3,\n    \"total_cost\": 1001,\n    \"status\": \"ACCEPT\",\n    \"quantity\": 1000,\n    \"note\": \"abc\",\n    \"price_quotation_id\": 9,\n    \"created_by\": \"\",\n    \"updated_by\": \"\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrl}}/import",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"import"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Find by id",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{baseUrl}}/import/:id",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"import",
-								":id"
-							],
-							"variable": [
-								{
-									"key": "id",
-									"value": "2"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Update Import info",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"supplier_id\": 1,\r\n    \"price_quotation_id\": 11,\r\n    \"subproduct_id\": 3,\r\n    \"product_id\": 1\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrl}}/import/:id",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"import",
-								":id"
-							],
-							"variable": [
-								{
-									"key": "id",
-									"value": "12"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "delete",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "{{baseUrl}}/import/2",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"import",
-								"2"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get History Statistical",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{baseUrl}}/getHistory/statistical?year=2022",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"getHistory",
-								"statistical"
-							],
-							"query": [
-								{
-									"key": "year",
-									"value": "2022"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get History Statistical Copy",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{baseUrl}}/import/count-per-month/?year=2023&quarter=1",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"import",
-								"count-per-month",
-								""
-							],
-							"query": [
-								{
-									"key": "year",
-									"value": "2023"
-								},
-								{
-									"key": "quarter",
-									"value": "1"
-								},
-								{
-									"key": "page",
-									"value": "1",
-									"disabled": true
-								},
-								{
-									"key": "limit",
-									"value": "0",
-									"disabled": true
-								}
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Price Quotation",
-			"item": [
-				{
-					"name": "get all",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{baseUrl}}/price-quotation/",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"price-quotation",
-								""
-							],
-							"query": [
-								{
-									"key": "import_id",
-									"value": "12",
-									"disabled": true
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "get by id",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{baseUrl}}/price-quotation/1",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"price-quotation",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "update by id",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "{{baseUrl}}/price-quotation/1",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"price-quotation",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "delete",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "{{baseUrl}}/price-quotation/1",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"price-quotation",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Tạo báo giá",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"import_id\": 12,\n    \"supplier_id\": 1,\n\n    \"product_id\": 4,\n    \"subproduct_id\": 1,\n\n    \"unit_price\": 250,\n    \"note\": \"\",\n\n    \"created_by\": null,\n    \"updated_by\": null\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrl}}/price-quotation/",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"price-quotation",
-								""
-							]
-						},
-						"description": "``` json\n```json\n{\n    \"import_id\": 12,     // id từ step 1\n    \"supplier_id\": 1,    // id ncc đã tạo từ trước\n\n    \"product_id\": 4,    // định danh sản phẩm\n    \"subproduct_id\": 1,    // lấy từ step 1\n\n    \"unit_price\": 150,\n    \"note\": \"\",\n\n    \"created_by\": null,\n    \"updated_by\": null\n}\n```\n\n```"
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Supplier",
-			"item": [
-				{
-					"name": "get all",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{baseUrl}}/supplier/",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"supplier",
-								""
-							],
-							"query": [
-								{
-									"key": "startAt",
-									"value": "2022-01-09T17:22:02.643Z",
-									"disabled": true
-								},
-								{
-									"key": "endAt",
-									"value": "2023-12-17",
-									"disabled": true
-								},
-								{
-									"key": "name",
-									"value": "a",
-									"disabled": true
-								},
-								{
-									"key": "phone",
-									"value": "98765432",
-									"disabled": true
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "find by id",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{baseUrl}}/supplier/5",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"supplier",
-								"5"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "create supplier",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Bách Khoa 7\",\r\n    \"phone\": \"1234567890\",\r\n    \"email\": \"harvardDaiCoViet@hust.vn\",\r\n    \"address\": \"So 1 Viet Nam\",\r\n    \"created_by\": \"a\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrl}}/supplier/",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"supplier",
-								""
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "update",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Bách Khoa\",\r\n    \"phone\": \"09999999999\",\r\n    \"email\": \"harvardDaiCoViet@hust.vn\",\r\n    \"address\": \"So 1 Viet Nam\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrl}}/supplier/2",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"supplier",
-								"2"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "delete",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "{{baseUrl}}/supplier/2",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"supplier",
-								"2"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get Statistical",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{baseUrl}}/supplier/count-per-month?year=2023",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"supplier",
-								"count-per-month"
-							],
-							"query": [
-								{
-									"key": "year",
-									"value": "2023"
-								}
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Replicate: Flow nhập hàng",
-			"item": [
-				{
-					"name": "1. ImpP:Create: Tạo yêu cầu nhập hàng",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"product_id\": 2,\n    \"subproduct_id\": 4,\n\n    \"supplier_id\": null,\n    \"price_quotation_id\": null,\n    \"total_cost\": 0,\n\n    \"status\": \"REQUEST\",\n    \n    \"quantity\": 1000,\n    \"note\": \"abc\",\n    \"created_by\": \"\",\n    \"updated_by\": \"\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrl}}/import",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"import"
-							]
-						},
-						"description": "``` json\n{\n    // Định danh sản phẩm\n    \"product_id\": 2,\n    \"subproduct_id\": 4,\n    // cập nhật lại ở step 3\n    \"supplier_id\": null,\n    \"price_quotation_id\": null,\n    \"total_cost\": 0,\n    // cố định\n    \"status\": \"REQUEST\",\n    //\n    \"quantity\": 1000,\n    \"note\": \"abc\",\n    \"created_by\": \"\",\n    \"updated_by\": \"\"\n}\n\n```"
-					},
-					"response": []
-				},
-				{
-					"name": "2a. ImpP:Upd: Phê duyệt yêu cầu ACCEPT",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"status\": \"ACCEPT\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrl}}/import/:id",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"import",
-								":id"
-							],
-							"variable": [
-								{
-									"key": "id",
-									"value": "1"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "2a. ImpP:Upd: Phê duyệt yêu cầu REJECT",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"status\": \"REJECT\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrl}}/import/:id",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"import",
-								":id"
-							],
-							"variable": [
-								{
-									"key": "id",
-									"value": "1"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "3. PQ:Create: Tạo báo giá cho ycnh đã ACCEPT",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"import_id\": 2,\n    \"supplier_id\": 1,\n\n    \"product_id\": 4,\n    \"subproduct_id\": 1,\n\n    \"unit_price\": 250,\n    \"note\": \"\",\n\n    \"created_by\": null,\n    \"updated_by\": null\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrl}}/price-quotation/",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"price-quotation",
-								""
-							]
-						},
-						"description": "``` json\n```json\n{\n    \"import_id\": 12,     // id từ step 1\n    \"supplier_id\": 1,    // id ncc đã tạo từ trước\n\n    \"product_id\": 4,    // định danh sản phẩm\n    \"subproduct_id\": 1,    // lấy từ step 1\n\n    \"unit_price\": 150,\n    \"note\": \"\",\n\n    \"created_by\": null,\n    \"updated_by\": null\n}\n```\n\n```"
-					},
-					"response": []
-				},
-				{
-					"name": "4. PQ:GetAll: Danh sách ycnh với import_id",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{baseUrl}}/price-quotation/?import_id=2",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"price-quotation",
-								""
-							],
-							"query": [
-								{
-									"key": "import_id",
-									"value": "2"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "5a. ImpP:Upd: Chọn 1 báo giá",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"supplier_id\": 1,\r\n    \"price_quotation_id\": 2,\r\n    \"total_cost\": 123456,\r\n    \"status\": \"P_Q_ASSIGNED\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrl}}/import/:id",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"import",
-								":id"
-							],
-							"variable": [
-								{
-									"key": "id",
-									"value": "2"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "5b. ImpP:Upd: Hủy ycnh",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"supplier_id\": null,\r\n    \"price_quotation_id\": null,\r\n    \"total_cost\": 0,\r\n    \"status\": \"CANCELED\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrl}}/import/:id",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"import",
-								":id"
-							],
-							"variable": [
-								{
-									"key": "id",
-									"value": "12"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "6. ImpP:Upd: Xác nhận nhập hàng thành công",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"status\": \"COMPLETED\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrl}}/import/:id",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"import",
-								":id"
-							],
-							"variable": [
-								{
-									"key": "id",
-									"value": "2"
-								}
-							]
-						}
-					},
-					"response": []
-				}
-			],
-			"description": "# Note\n\n- Đây là quy trình tạm thời để nhập hàng\n- \\*Supplier\\* mới có thể tạo supplier trước bước 3 của quy trình"
-		},
-		{
-			"name": "Replicate: Provide API",
-			"item": [
-				{
-					"name": "Lấy giá nhập hàng",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{baseUrl}}/import/get-price?groupBy=product_id",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"import",
-								"get-price"
-							],
-							"query": [
-								{
-									"key": "product_id",
-									"value": "1",
-									"disabled": true
-								},
-								{
-									"key": "groupBy",
-									"value": "product_id"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Danh sách nhà cung cấp",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{baseUrl}}/supplier/?startAt=2022-01-09T17:22:02.643Z&endAt=2023-12-17&name=a&phone=8",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"supplier",
-								""
-							],
-							"query": [
-								{
-									"key": "startAt",
-									"value": "2022-01-09T17:22:02.643Z"
-								},
-								{
-									"key": "endAt",
-									"value": "2023-12-17"
-								},
-								{
-									"key": "name",
-									"value": "a"
-								},
-								{
-									"key": "phone",
-									"value": "8"
-								}
-							]
-						}
-					},
-					"response": []
-				}
-			],
-			"description": "## Danh sách Api cung cấp cho nhóm khác\n\n| API name | Group |\n| --- | --- |\n| Lấy giá nhập hàng | SP_06:Product |\n| Lấy danh sách nhà cung cấp | SP_06:Product |"
-		}
-	]
+  "info": {
+    "_postman_id": "1044209a-d32d-43e9-8ece-74bf2f8a7f22",
+    "name": "1. Version 1",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "15947742"
+  },
+  "item": [
+    {
+      "name": "Import product",
+      "item": [
+        {
+          "name": "get all import request",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/import",
+              "host": ["{{baseUrl}}"],
+              "path": ["import"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1",
+                  "disabled": true
+                },
+                {
+                  "key": "limit",
+                  "value": "2",
+                  "disabled": true
+                },
+                {
+                  "key": "startAt",
+                  "value": "2021-03-01 00:00:00",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "get all import request",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/import?page=1&limit=2&startAt=2021-03-01 00:00:00",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["import"],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "2"
+                    },
+                    {
+                      "key": "startAt",
+                      "value": "2021-03-01 00:00:00"
+                    }
+                  ]
+                }
+              },
+              "_postman_previewlanguage": "json",
+              "header": null,
+              "cookie": [],
+              "body": "{\n    \"message\": \"findAll\",\n    \"count\": 1,\n    \"filter\": {},\n    \"data\": [\n        {\n            \"id\": 1,\n            \"price_quotation_id\": null,\n            \"supplier_id\": null,\n            \"product_id\": 2,\n            \"subproduct_id\": 4,\n            \"quantity\": 1000,\n            \"total_cost\": 0,\n            \"status\": \"ACCEPT\",\n            \"note\": \"abc\",\n            \"created_by\": \"\",\n            \"updated_by\": \"\",\n            \"createdAt\": \"2023-01-06T17:55:04.649Z\",\n            \"updatedAt\": \"2023-01-06T17:55:18.502Z\",\n            \"SupplierModelId\": null\n        }\n    ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "get all Import request join",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/import?status=COMPLETED",
+              "host": ["{{baseUrl}}"],
+              "path": ["import"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1",
+                  "disabled": true
+                },
+                {
+                  "key": "limit",
+                  "value": "2",
+                  "disabled": true
+                },
+                {
+                  "key": "startAt",
+                  "value": "2021-03-01 00:00:00",
+                  "disabled": true
+                },
+                {
+                  "key": "status",
+                  "value": "COMPLETED"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get all Import request join Copy",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/import/history",
+              "host": ["{{baseUrl}}"],
+              "path": ["import", "history"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1",
+                  "disabled": true
+                },
+                {
+                  "key": "limit",
+                  "value": "2",
+                  "disabled": true
+                },
+                {
+                  "key": "startAt",
+                  "value": "2021-03-01 00:00:00",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "import product",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"supplier_id\": 1,\n    \"product_id\": 2,\n    \"subproduct_id\": 3,\n    \"total_cost\": 1001,\n    \"status\": \"ACCEPT\",\n    \"quantity\": 1000,\n    \"note\": \"abc\",\n    \"price_quotation_id\": 9,\n    \"created_by\": \"\",\n    \"updated_by\": \"\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/import",
+              "host": ["{{baseUrl}}"],
+              "path": ["import"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Find by id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/import/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["import", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "2"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Import info",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"supplier_id\": 1,\r\n    \"price_quotation_id\": 11,\r\n    \"subproduct_id\": 3,\r\n    \"product_id\": 1\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/import/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["import", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "12"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "delete",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/import/2",
+              "host": ["{{baseUrl}}"],
+              "path": ["import", "2"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get History Statistical",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/getHistory/statistical?year=2022",
+              "host": ["{{baseUrl}}"],
+              "path": ["getHistory", "statistical"],
+              "query": [
+                {
+                  "key": "year",
+                  "value": "2022"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get History Statistical Copy",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/import/count-per-month/?year=2023&quarter=1",
+              "host": ["{{baseUrl}}"],
+              "path": ["import", "count-per-month", ""],
+              "query": [
+                {
+                  "key": "year",
+                  "value": "2023"
+                },
+                {
+                  "key": "quarter",
+                  "value": "1"
+                },
+                {
+                  "key": "page",
+                  "value": "1",
+                  "disabled": true
+                },
+                {
+                  "key": "limit",
+                  "value": "0",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Price Quotation",
+      "item": [
+        {
+          "name": "get all",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/price-quotation/",
+              "host": ["{{baseUrl}}"],
+              "path": ["price-quotation", ""],
+              "query": [
+                {
+                  "key": "import_id",
+                  "value": "12",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get by id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/price-quotation/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["price-quotation", "1"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "update by id",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "{{baseUrl}}/price-quotation/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["price-quotation", "1"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "delete",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/price-quotation/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["price-quotation", "1"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Tạo báo giá",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"import_id\": 12,\n    \"supplier_id\": 1,\n\n    \"product_id\": 4,\n    \"subproduct_id\": 1,\n\n    \"unit_price\": 250,\n    \"note\": \"\",\n\n    \"created_by\": null,\n    \"updated_by\": null\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/price-quotation/",
+              "host": ["{{baseUrl}}"],
+              "path": ["price-quotation", ""]
+            },
+            "description": "``` json\n```json\n{\n    \"import_id\": 12,     // id từ step 1\n    \"supplier_id\": 1,    // id ncc đã tạo từ trước\n\n    \"product_id\": 4,    // định danh sản phẩm\n    \"subproduct_id\": 1,    // lấy từ step 1\n\n    \"unit_price\": 150,\n    \"note\": \"\",\n\n    \"created_by\": null,\n    \"updated_by\": null\n}\n```\n\n```"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Supplier",
+      "item": [
+        {
+          "name": "get all",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/supplier/",
+              "host": ["{{baseUrl}}"],
+              "path": ["supplier", ""],
+              "query": [
+                {
+                  "key": "startAt",
+                  "value": "2022-01-09T17:22:02.643Z",
+                  "disabled": true
+                },
+                {
+                  "key": "endAt",
+                  "value": "2023-12-17",
+                  "disabled": true
+                },
+                {
+                  "key": "name",
+                  "value": "a",
+                  "disabled": true
+                },
+                {
+                  "key": "phone",
+                  "value": "98765432",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "find by id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/supplier/5",
+              "host": ["{{baseUrl}}"],
+              "path": ["supplier", "5"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "create supplier",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"Bách Khoa 7\",\r\n    \"phone\": \"1234567890\",\r\n    \"email\": \"harvardDaiCoViet@hust.vn\",\r\n    \"address\": \"So 1 Viet Nam\",\r\n    \"created_by\": \"a\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/supplier/",
+              "host": ["{{baseUrl}}"],
+              "path": ["supplier", ""]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "update",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"Bách Khoa\",\r\n    \"phone\": \"09999999999\",\r\n    \"email\": \"harvardDaiCoViet@hust.vn\",\r\n    \"address\": \"So 1 Viet Nam\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/supplier/2",
+              "host": ["{{baseUrl}}"],
+              "path": ["supplier", "2"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "delete",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/supplier/2",
+              "host": ["{{baseUrl}}"],
+              "path": ["supplier", "2"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Statistical",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/supplier/count-per-month?year=2023",
+              "host": ["{{baseUrl}}"],
+              "path": ["supplier", "count-per-month"],
+              "query": [
+                {
+                  "key": "year",
+                  "value": "2023"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Replicate: Flow nhập hàng",
+      "item": [
+        {
+          "name": "1. ImpP:Create: Tạo yêu cầu nhập hàng",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"product_id\": 2,\n    \"subproduct_id\": 4,\n\n    \"supplier_id\": null,\n    \"price_quotation_id\": null,\n    \"total_cost\": 0,\n\n    \"status\": \"REQUEST\",\n    \n    \"quantity\": 1000,\n    \"note\": \"abc\",\n    \"created_by\": \"\",\n    \"updated_by\": \"\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/import",
+              "host": ["{{baseUrl}}"],
+              "path": ["import"]
+            },
+            "description": "``` json\n{\n    // Định danh sản phẩm\n    \"product_id\": 2,\n    \"subproduct_id\": 4,\n    // cập nhật lại ở step 3\n    \"supplier_id\": null,\n    \"price_quotation_id\": null,\n    \"total_cost\": 0,\n    // cố định\n    \"status\": \"REQUEST\",\n    //\n    \"quantity\": 1000,\n    \"note\": \"abc\",\n    \"created_by\": \"\",\n    \"updated_by\": \"\"\n}\n\n```"
+          },
+          "response": []
+        },
+        {
+          "name": "2a. ImpP:Upd: Phê duyệt yêu cầu ACCEPT",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"status\": \"ACCEPT\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/import/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["import", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "2a. ImpP:Upd: Phê duyệt yêu cầu REJECT",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"status\": \"REJECT\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/import/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["import", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "3. PQ:Create: Tạo báo giá cho ycnh đã ACCEPT",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"import_id\": 2,\n    \"supplier_id\": 1,\n\n    \"product_id\": 4,\n    \"subproduct_id\": 1,\n\n    \"unit_price\": 250,\n    \"note\": \"\",\n\n    \"created_by\": null,\n    \"updated_by\": null\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/price-quotation/",
+              "host": ["{{baseUrl}}"],
+              "path": ["price-quotation", ""]
+            },
+            "description": "``` json\n```json\n{\n    \"import_id\": 12,     // id từ step 1\n    \"supplier_id\": 1,    // id ncc đã tạo từ trước\n\n    \"product_id\": 4,    // định danh sản phẩm\n    \"subproduct_id\": 1,    // lấy từ step 1\n\n    \"unit_price\": 150,\n    \"note\": \"\",\n\n    \"created_by\": null,\n    \"updated_by\": null\n}\n```\n\n```"
+          },
+          "response": []
+        },
+        {
+          "name": "4. PQ:GetAll: Danh sách ycnh với import_id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/price-quotation/?import_id=2",
+              "host": ["{{baseUrl}}"],
+              "path": ["price-quotation", ""],
+              "query": [
+                {
+                  "key": "import_id",
+                  "value": "2"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "5a. ImpP:Upd: Chọn 1 báo giá",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"supplier_id\": 1,\r\n    \"price_quotation_id\": 2,\r\n    \"total_cost\": 123456,\r\n    \"status\": \"P_Q_ASSIGNED\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/import/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["import", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "2"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "5b. ImpP:Upd: Hủy ycnh",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"supplier_id\": null,\r\n    \"price_quotation_id\": null,\r\n    \"total_cost\": 0,\r\n    \"status\": \"CANCELED\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/import/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["import", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "12"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "6. ImpP:Upd: Xác nhận nhập hàng thành công",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"status\": \"COMPLETED\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/import/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["import", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "2"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "description": "# Note\n\n- Đây là quy trình tạm thời để nhập hàng\n- \\*Supplier\\* mới có thể tạo supplier trước bước 3 của quy trình"
+    },
+    {
+      "name": "Replicate: Provide API",
+      "item": [
+        {
+          "name": "Lấy giá nhập hàng",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/import/get-price?groupBy=product_id",
+              "host": ["{{baseUrl}}"],
+              "path": ["import", "get-price"],
+              "query": [
+                {
+                  "key": "product_id",
+                  "value": "1",
+                  "disabled": true
+                },
+                {
+                  "key": "groupBy",
+                  "value": "product_id"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Danh sách nhà cung cấp",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/supplier/?startAt=2022-01-09T17:22:02.643Z&endAt=2023-12-17&name=a&phone=8",
+              "host": ["{{baseUrl}}"],
+              "path": ["supplier", ""],
+              "query": [
+                {
+                  "key": "startAt",
+                  "value": "2022-01-09T17:22:02.643Z"
+                },
+                {
+                  "key": "endAt",
+                  "value": "2023-12-17"
+                },
+                {
+                  "key": "name",
+                  "value": "a"
+                },
+                {
+                  "key": "phone",
+                  "value": "8"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "description": "## Danh sách Api cung cấp cho nhóm khác\n\n| API name | Group |\n| --- | --- |\n| Lấy giá nhập hàng | SP_06:Product |\n| Lấy danh sách nhà cung cấp | SP_06:Product |"
+    }
+  ]
 }
