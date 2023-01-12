@@ -5,17 +5,17 @@ on:
       - main
 env:
   FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
-  PORT: ${{ env.PORT }}
-  DB_HOST: ${{ env.DB_HOST }}
-  DB_PORT: ${{ env.DB_PORT }}
-  DB_USER: ${{ env.DB_USER }}
-  DB_PASSWORD: ${{ env.DB_PASSWORD }}
-  DB_DATABASE: ${{ env.DB_DATABASE }}
-  SECRET_KEY: ${{ env.SECRET_KEY }}
-  LOG_FORMAT: ${{ env.LOG_FORMAT }}
-  LOG_DIR: ${{ env.LOG_DIR }}
-  ORIGIN: ${{ env.ORIGIN }}
-  CREDENTIALS: ${{ env.CREDENTIALS }}
+  PORT: ${{ vars.PORT }}
+  DB_HOST: ${{ vars.DB_HOST }}
+  DB_PORT: ${{ vars.DB_PORT }}
+  DB_USER: ${{ vars.DB_USER }}
+  DB_PASSWORD: ${{ vars.DB_PASSWORD }}
+  DB_DATABASE: ${{ vars.DB_DATABASE }}
+  SECRET_KEY: ${{ vars.SECRET_KEY }}
+  LOG_FORMAT: ${{ vars.LOG_FORMAT }}
+  LOG_DIR: ${{ vars.LOG_DIR }}
+  ORIGIN: ${{ vars.ORIGIN }}
+  CREDENTIALS: ${{ vars.CREDENTIALS }}
 jobs:
   deploy:
       name: Deploy app
