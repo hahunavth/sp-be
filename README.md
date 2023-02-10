@@ -25,16 +25,16 @@
 │   ├── config          # Chứa các file dùng để load config, env
 │   ├── controllers     # Chứa các controllers
 │   ├── databases       # Script kết nối DB
-│   ├── dtos            # Chứa các data transfer object (dtos) 
-│   ├── exceptions      # 
+│   ├── dtos            # Chứa các data transfer object (dtos)
+│   ├── exceptions      #
 │   ├── http            #
-│   ├── interfaces      # 
+│   ├── interfaces      #
 │   ├── middlewares     # Định nghĩa các middleware
 │   ├── migrations      #
 │   ├── models          # Định nghĩa schema cho db
 │   ├── routes          # Map các route tới controller tương ứng
 │   ├── seeders         # Seed db
-│   ├── server.ts       # 
+│   ├── server.ts       #
 │   ├── services        # Business logic
 │   ├── tests           # test
 │   └── utils           #
