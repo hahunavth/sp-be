@@ -7,6 +7,10 @@ import { Request } from 'express';
 import DB from '@/databases';
 import { QueryTypes } from 'sequelize';
 
+/**
+ * Supplier controller
+ * using table: suppliers
+ */
 class SupplierController extends CRUDController<Supplier, CreateSupplierDto, CreateSupplierDto, SupplierService> {
   public constructor() {
     const service = new SupplierService();

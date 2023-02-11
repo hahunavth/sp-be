@@ -3,6 +3,9 @@ import { validate, ValidationError } from 'class-validator';
 import { RequestHandler } from 'express';
 import { HttpException } from '@exceptions/HttpException';
 
+/**
+ * Middleware for validating DTOs
+ */
 const validationMiddleware = (
   type: any,
   value: string | 'body' | 'query' | 'params' = 'body',

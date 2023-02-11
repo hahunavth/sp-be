@@ -20,23 +20,35 @@
 ├── nginx.conf
 ├── package.json
 ├── .env                # File định nghĩa biến môi trường
+├── dist                # Thư mục chứa file js được build từ ts
 ├── src
 │   ├── app.ts
 │   ├── config          # Chứa các file dùng để load config, env
 │   ├── controllers     # Chứa các controllers
 │   ├── databases       # Script kết nối DB
-│   ├── dtos            # Chứa các data transfer object (dtos) 
-│   ├── exceptions      # 
+│   ├── dtos            # Chứa các data transfer object (dtos)
+│   ├── exceptions      #
 │   ├── http            #
-│   ├── interfaces      # 
+│   ├── interfaces      #
 │   ├── middlewares     # Định nghĩa các middleware
 │   ├── migrations      #
 │   ├── models          # Định nghĩa schema cho db
 │   ├── routes          # Map các route tới controller tương ứng
 │   ├── seeders         # Seed db
-│   ├── server.ts       # 
+│   ├── server.ts       #
 │   ├── services        # Business logic
 │   ├── tests           # test
 │   └── utils           #
 └── tsconfig.json
 ```
+
+## Setup
+### Config .env
+### ORM(Sequenlize)
+### Install libraries
+### Run
+### Deploy
+### CI/CD
+
+## Hướng dẫn tester
+## Link tài liệu

@@ -1,5 +1,8 @@
 import { NextFunction, Request, Response } from 'express';
 
+/**
+ * @deprecated
+ */
 class IndexController {
   public index = (req: Request, res: Response, next: NextFunction) => {
     try {

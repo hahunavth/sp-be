@@ -26,14 +26,35 @@ type TimeFilter = {
 
 type ApiPaginateSuccess<T> = ApiSuccess<T> & Paginate & TimeFilter;
 
+/**
+ * Base controller
+ *
+ * Class for all controller.
+ * It contains some common methods for parsing request and response.
+ * It is not necessary to use this class.
+ *
+ * @author HaVT
+ */
 class BaseController {
   protected readonly _res = {
+    /**
+     * send success response
+     * @param res Response
+     * @param param1 ApiSuccess
+     * @returns
+     */
     success: <T>(res: Response, { data, message }: ApiSuccess<T>) => {
       return res.status(200).json({
         message: message || 'Sucessfully',
         data,
       });
     },
+    /**
+     * send list response
+     * @param res Response
+     * @param param1
+     * @returns
+     */
     paginate: <T>(res: Response, { data, message, count, limit, page, endAt, startAt, filter }: ApiPaginateSuccess<T>) => {
       return res.status(200).json({
         message: message || 'Successfully',
@@ -49,6 +70,9 @@ class BaseController {
   };
 
   protected readonly _req = {
+    /**
+     * parse paginate info from request query
+     */
     parse_paginate: (req: Request) => {
       const { page, limit } = req.query;
       const _page = Number.parseInt(page as string);
@@ -61,7 +85,9 @@ class BaseController {
         limit: _limit || undefined,
       };
     },
-
+    /**
+     * parse time filter from request query
+     */
     parse_time: (req: Request) => {
       const { startAt, endAt } = req.query;
       const result: { startAt?: string; endAt?: string; where?: any } = {};
@@ -83,7 +109,10 @@ class BaseController {
 
       return result;
     },
-
+    /**
+     * parse filter from request query
+     * use for sequelize model
+     */
     parse_filter: (req: Request, model) => {
       const where_filter = {};
       const filter = {};
@@ -102,6 +131,10 @@ class BaseController {
       return { where_filter, filter };
     },
 
+    /**
+     * parse filter from request query
+     * use for raw query
+     */
     parse_filter_raw: (req: Request, model: { [key: string]: string }) => {
       const filter = {};
       Object.keys(req.query)

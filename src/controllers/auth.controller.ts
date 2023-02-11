@@ -4,6 +4,9 @@ import { User } from '@interfaces/users.interface';
 import { RequestWithUser } from '@interfaces/auth.interface';
 import AuthService from '@services/auth.service';
 
+/**
+ * @deprecated
+ */
 class AuthController {
   public authService = new AuthService();
 

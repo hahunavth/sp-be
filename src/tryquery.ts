@@ -1,3 +1,8 @@
+/**
+ * This is an example of a file with sql query.
+ * You can write your query here and execute it.
+ */
+
 import compression from 'compression';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';

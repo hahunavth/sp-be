@@ -6,6 +6,10 @@ import PriceQuotationModel from '@models/priceQuotation.model';
 import SupplierModel from '@models/supplier.model';
 import { logger } from '@utils/logger';
 
+/**
+ * Database connection
+ * @see https://sequelize.org/master/manual/getting-started.html
+ */
 const sequelize = new Sequelize.Sequelize(DB_DATABASE, DB_USER, DB_PASSWORD, {
   dialect: 'postgres',
   host: DB_HOST,

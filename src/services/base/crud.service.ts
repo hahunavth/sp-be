@@ -1,8 +1,12 @@
 import { HttpException } from '@exceptions/HttpException';
 import { isEmpty } from '@utils/util';
-import { Model } from 'sequelize';
 
 /**
+ * CRUD Service
+ * @param I: interface
+ * @param C: create
+ * @param U: update
+ *
  * Override: handle find record, check email, ...
  * hash pwd, ...
  * in route create, update

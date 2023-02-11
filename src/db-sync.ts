@@ -1,3 +1,8 @@
+/**
+ * Execute this file to sync the database
+ * external modules
+ */
+
 import DB from '@databases';
 import { logger, stream } from '@utils/logger';
 

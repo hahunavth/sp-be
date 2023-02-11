@@ -2,6 +2,15 @@ import BaseRoute from './base.routes';
 import validationMiddleware from '@middlewares/validation.middleware';
 import CRUDController from '@/controllers/base/crud.controller';
 
+/**
+ * CRUD route
+ * contains common routes for CRUD:
+ * {path}/ GET - getAll
+ * {path}/:id GET - getById
+ * {path}/ POST - create
+ * {path}/:id PUT - update
+ * {path}/:id DELETE - delete
+ */
 class CRUDRoute extends BaseRoute {
   public controller;
   constructor(path: string, controller: CRUDController<any, any, any, any>, CreateDtoCls: Object, UpdateDtoCls: Object) {

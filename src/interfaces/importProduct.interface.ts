@@ -1,3 +1,6 @@
+/**
+ * @swagger
+ */
 export interface ImportProduct {
   id: number;
   price_quotation_id?: number;
