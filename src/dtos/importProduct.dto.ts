@@ -2,6 +2,8 @@ import { ImportProductCreationAttributes } from '@/models/importProduct.model';
 import { IsString, IsNumber, IsOptional } from 'class-validator';
 
 /**
+ * CreateImportProductDto
+ * @description Data create import product
  * NOTE: IsOptional Cần đặt dưới các validate decorator khác!!!!
  */
 class CreateImportProductDto implements ImportProductCreationAttributes {

@@ -1,3 +1,7 @@
+/**
+ * Define PriceQuotation model
+ */
+
 import { Sequelize, DataTypes, Model, Optional } from 'sequelize';
 import { PriceQuotation } from '@interfaces/priceQuotation.interface';
 

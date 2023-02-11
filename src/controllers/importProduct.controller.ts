@@ -7,6 +7,10 @@ import { NextFunction, Response } from 'express-serve-static-core';
 import DB from '@/databases';
 import { QueryTypes } from 'sequelize';
 
+/**
+ * ImportProduct controller
+ * using table: import_products
+ */
 class ImportProductController extends CRUDController<ImportProduct, CreateImportProductDto, CreateImportProductDto, ImportProductService> {
   constructor() {
     super(new ImportProductService());

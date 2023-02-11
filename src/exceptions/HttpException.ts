@@ -1,3 +1,8 @@
+/**
+ * HttpException
+ * @class HttpException
+ * common exception for http
+ */
 export class HttpException extends Error {
   public status: number;
   public message: string;

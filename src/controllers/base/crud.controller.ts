@@ -1,8 +1,23 @@
 import { NextFunction, Request, Response } from 'express';
 import CRUDService from '@/services/base/crud.service';
 import BaseController from './base.controller';
-import { Op } from 'sequelize';
 
+/**
+ * CRUD controller
+ * contains common methods for CRUD:
+ * - getAll (GET) - get all data with pagination and filter
+ * - getById (GET) - get data by id
+ * - create (POST) - create data
+ * - update (PUT) - update data by id
+ * - delete (DELETE) - delete data by id (soft delete)
+ *
+ * @param I interface
+ * @param C create
+ * @param U update
+ * @param S service
+ *
+ * @author HaVT
+ */
 abstract class CRUDController<I, C extends Object, U extends Object, S extends CRUDService<I, C, U>> extends BaseController {
   public service: any;
 

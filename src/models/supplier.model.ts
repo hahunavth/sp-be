@@ -1,3 +1,7 @@
+/**
+ * Define Supplier model
+ */
+
 import { Sequelize, DataTypes, Model, Optional } from 'sequelize';
 import { Supplier } from '@interfaces/supplier.interface';
 

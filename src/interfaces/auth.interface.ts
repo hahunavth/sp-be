@@ -1,6 +1,9 @@
 import { Request } from 'express';
 import { User } from '@interfaces/users.interface';
 
+/**
+ * @deprecated
+ */
 export interface DataStoredInToken {
   id: number;
 }

@@ -1,3 +1,7 @@
+/**
+ * Define ImportProduct model
+ */
+
 import { Sequelize, DataTypes, Model, Optional } from 'sequelize';
 import { ImportProduct } from '@interfaces/importProduct.interface';
 

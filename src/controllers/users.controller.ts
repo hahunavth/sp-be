@@ -1,3 +1,56 @@
+type ImportT = {
+  id: number;
+  name: string;
+};
+
+import { Request, Response } from 'express';
+import DB from '@/databases';
+import { QueryTypes } from 'sequelize';
+import { HttpException } from '@/exceptions/HttpException';
+import BaseRoute from '@/routes/base/base.routes';
+
+/**
+ * @deprecated
+ */
+class ImportRepository {
+  public async getOne(id: number) {
+    // query data from database
+    const sql = `select * from imports where id=${id};`;
+    const data = await DB.sequelize.query(sql, { type: QueryTypes.SELECT });
+
+    if (!data.length) throw new HttpException(400, 'Not found supplier');
+
+    return data;
+  }
+}
+
+class ImportService {
+  constructor(private repository: ImportRepository) {}
+
+  public getOne(impId: number, prodId: number) {
+    const data = this.repository.getOne(impId);
+    // business logic
+    const imp: ImportT = data[0];
+    return this.processImport(imp, prodId);
+  }
+
+  processImport(imp, prodId) {
+    return;
+  }
+}
+
+class ImportController extends BaseRoute {
+  constructor(private service: ImportService) {
+    super('');
+    this.router.get('/import', this.getOne); // register route
+  }
+
+  public getOne(req: Request, res: Response) {
+    const { importId, prodId } = req.params as any;
+    return this.service.getOne(importId, prodId);
+  }
+}
+
 // import { NextFunction, Request, Response } from 'express';
 // import { CreateUserDto } from '@dtos/users.dto';
 // import { User } from '@interfaces/users.interface';
@@ -69,76 +122,3 @@
 //     }
 //   };
 // }
-
-type ImportT = {
-  id: number;
-  name: string;
-};
-
-import { Request, Response } from 'express';
-import DB from '@/databases';
-import { QueryTypes } from 'sequelize';
-import { HttpException } from '@/exceptions/HttpException';
-import BaseController from './base/base.controller';
-import BaseRoute from '@/routes/base/base.routes';
-
-// class ImportController {
-//   public importProduct = async (req: Request, res: Response) => {
-//     const { importId, prodId } = req.params;
-//     // query data from database
-//     const sql = `select * from imports where id=${importId};`;
-//     const data: any = await DB.sequelize.query(sql, { type: QueryTypes.SELECT });
-//     // business logic
-//     if (data.length > 0) {
-//       const imp: ImportT = data[0];
-//       this.processImport(imp, prodId);
-//     }
-
-//     res.status(200).json({ data });
-//   };
-
-//   processImport(imp, prodId) {
-//     return;
-//   }
-// }
-
-// export default ImportController;
-
-class ImportRepository {
-  public async getOne(id: number) {
-    // query data from database
-    const sql = `select * from imports where id=${id};`;
-    const data = await DB.sequelize.query(sql, { type: QueryTypes.SELECT });
-
-    if (!data.length) throw new HttpException(400, 'Not found supplier');
-
-    return data;
-  }
-}
-
-class ImportService {
-  constructor(private repository: ImportRepository) {}
-
-  public getOne(impId: number, prodId: number) {
-    const data = this.repository.getOne(impId);
-    // business logic
-    const imp: ImportT = data[0];
-    return this.processImport(imp, prodId);
-  }
-
-  processImport(imp, prodId) {
-    return;
-  }
-}
-
-class ImportController extends BaseRoute {
-  constructor(private service: ImportService) {
-    super('');
-    this.router.get('/import', this.getOne); // register route
-  }
-
-  public getOne(req: Request, res: Response) {
-    const { importId, prodId } = req.params as any;
-    return this.service.getOne(importId, prodId);
-  }
-}

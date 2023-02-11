@@ -1,3 +1,6 @@
+/**
+ * PriceQuotation interface
+ */
 export interface PriceQuotation {
   id: number;
   import_id: number;
