@@ -43,12 +43,19 @@
 ```
 
 ## Setup
+
 ### Config .env
+
 ### ORM(Sequenlize)
+
 ### Install libraries
+
 ### Run
+
 ### Deploy
+
 ### CI/CD
 
 ## Hướng dẫn tester
+
 ## Link tài liệu
