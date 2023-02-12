@@ -44,9 +44,42 @@
 
 ## Setup
 ### Config .env
+
+```
+# PORT
+PORT = 3000
+
+# DATABASE
+DB_HOST = sp-17-production-db.fly.dev
+DB_PORT = 5432
+DB_USER = postgres
+DB_PASSWORD = lvI5yXgQkZFfkVq
+DB_DATABASE = sp_17_production_v2
+# DIALECT=postgres
+
+# TOKEN
+SECRET_KEY = secretKey
+
+# LOG
+LOG_FORMAT = dev
+LOG_DIR = ../logs
+
+# CORS
+ORIGIN = *
+CREDENTIALS = true
+```
+
 ### ORM(Sequenlize)
 ### Install libraries
+
+Sử dụng lệnh `npm install`
+
 ### Run
+
+Chạy trên môi trường development sử dụng lệnh `npm dev`
+<br>
+Chạy production dùng lệnh `npm start`
+
 ### Deploy
 ### CI/CD
 
