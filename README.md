@@ -51,6 +51,9 @@
 ### CI/CD
 
 ## Hướng dẫn tester
+<p>Dựa theo link postman bên dưới, vào phần Version 1. Sửa BaseURL giống như link bên dưới để test. Sau đó đối chiếu kết quả trả về với kết quả ghi trong Link API Doc. Có thể thử các trường hợp vi phạm để bắt các lỗi không hợp lệ.</p>
+
+
 ## Link tài liệu
 <ul>
   <li><a href="https://husteduvn.sharepoint.com/:x:/s/IT44922022I-CGiang/EY666IL81J1HtFxlS2VlZRUB4jN1OfpGH_LN2Tg2Gj_5pQ?e=vp5ZuN">Link API Doc</a></li>
