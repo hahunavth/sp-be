@@ -43,15 +43,23 @@
 ```
 
 ## Setup
+
 ### Config .env
+
 ### ORM(Sequenlize)
+
 ### Install libraries
+
 ### Run
+
 ### Deploy
+
 ### CI/CD
 
 ## Hướng dẫn tester
+
 ## Link tài liệu
+
 <ul>
   <li><a href="https://husteduvn.sharepoint.com/:x:/s/IT44922022I-CGiang/EY666IL81J1HtFxlS2VlZRUB4jN1OfpGH_LN2Tg2Gj_5pQ?e=vp5ZuN">Link API Doc</a></li>
   <li><a href="https://www.postman.com/lunar-star-420883/workspace/sp-17/overview">Link Postman</a></li>
